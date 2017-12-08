@@ -1,0 +1,46 @@
+<!doctype html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Fast Recruiting</title>
+        <base href="/">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+        <!-- AngularJS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+
+        <!-- AngularFire -->
+        <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+
+
+        <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyBgcJbiUdjWzlyZPKwNbyT6cbBTDCiV1b0",
+                authDomain: "fastrecruiter-69397.firebaseapp.com",
+                databaseURL: "https://fastrecruiter-69397.firebaseio.com",
+                projectId: "fastrecruiter-69397",
+                storageBucket: "fastrecruiter-69397.appspot.com",
+                messagingSenderId: "833801141202"
+            };
+            firebase.initializeApp(config);
+
+            var app = angular.module("sampleApp", ["firebase"]);
+
+        </script>
+
+
+    </head>
+    <body>
+        <app-root>
+            <div class="spinner">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+        </app-root>
+    </body>
+</html>
