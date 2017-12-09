@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {SelectedCandidatesComponent} from './selected-candidates.component';
+import {ViewCandidatesComponent} from './view-candidates.component';
 
 const routes: Routes = [
     {
-        path: '', component: SelectedCandidatesComponent
+        path: '', component: ViewCandidatesComponent
     }
 ];
+
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class SelectedCandidatesRoutingModule { }
+export class ViewCandidatesRoutingModule { }

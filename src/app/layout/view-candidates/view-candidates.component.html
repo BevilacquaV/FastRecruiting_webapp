@@ -1,3 +1,49 @@
-<p>
-  view-candidates works!
-</p>
+<app-page-header [heading]="'Visualizza Candidati'" [icon]="'fa fa-user'"></app-page-header>
+<div class="card mb-3">
+  <div class="card-header" align="center" >Visualizza Candidati</div>
+  <table class="card-body table">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th><i class="fa fa-user"></i> Nome Candidato</th>
+      <th>  <span class="fa fa-calendar"></span> Data Candidatura</th>
+      <!--  <th>Username</th>-->
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="table-success">
+      <th scope="row">1</th>
+      <td>Antonio De Piano<tr>
+      Programmatore web</tr></td>
+    <td>14/03/2018</td>
+    <td><button type="button" class="btn btn-primary">Visualizza</button></td>
+    </tr>
+    <tr class="table-success">
+      <th scope="row">2</th>
+      <td>Fabio De Cicco<tr>
+      Programmatore Java</tr></td>
+    <td>14/03/2018</td>
+    <td><button type="button" class="btn btn-primary">Visualizza</button></td>
+    </tr>
+    <tr class="table-info">
+      <th scope="row">3</th>
+      <td>Mario Rossi<tr>Programmatore web</tr></td>
+    <td>10/02/2018</td>
+    <td><button type="button" class="btn btn-primary">Visualizza</button></td>
+    </tr>
+    <tr class="table-info">
+      <th scope="row">4</th>
+      <td>Fabio Caruso<tr> </tr> Programmatore Apple</td>
+    <td>23/01/2018</td>
+    <td><button type="button" class="btn btn-primary">Visualizza</button></td>
+    </tr>
+    <tr class="table-info">
+      <th scope="row">5</th>
+      <td>Vincenzo Bevilacqua<tr>Programmatore web</tr></td>
+    <td>15/01/2018</td>
+    <td><button type="button" class="btn btn-primary">Visualizza</button></td>
+
+    </tr>
+    </tbody>
+  </table>
+</div>
