@@ -87,10 +87,10 @@
                     <i class="fa fa-bell"></i> <b class="caret"></b><span class="sr-only">(current)</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right">
-                    <a href="javascript:void(0)" class="dropdown-item">
+                    <a [routerLink]="['/selected-candidates']" class="dropdown-item">
                         {{ 'Pending Task' | translate }} <span class="badge badge-info">6</span>
                     </a>
-                    <a href="javascript:void(0)" class="dropdown-item">
+                    <a [routerLink]="['/view-candidates']" class="dropdown-item">
                         {{ 'In queue' | translate }} <span class="badge badge-info"> 13</span>
                     </a>
                     <!--
