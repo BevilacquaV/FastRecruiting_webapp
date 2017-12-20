@@ -31,29 +31,20 @@ export class LoginComponent implements OnInit {
     }
 
     onLoggedin(email, password) {
-        console.log('utente email:', email, 'password:', password);
-        localStorage.setItem('isLoggedin', 'true');
         this.flag = 0;
-
         this.database.valueChanges().forEach(el => {
             // const criptPassword = Md5.init(password);
             const criptPassword = password;
-            console.log('-----email:', email, ' element.email:', el.email, ' password: ',
-                password, ' element.password:', el.password );
             el.forEach(element => {
-                console.log('email:', email, ' element.email:', element.email, ' password: ',
-                    password, ' element.password:', element.password );
                 if (element.email === email && element.password === criptPassword) {
-                    console.log('ok');
                     this.flag = 1;
                 }
             });
+            if ( this.flag === 1) {
+                console.log('Utente trovato');
+            } else {
+                console.log('Utente non trovato');
+            }
         });
-
-        if ( this.flag === 1) {
-            console.log('Utente trovato');
-        } else {
-            console.log('Utente non trovato');
-        }
     }
 }
