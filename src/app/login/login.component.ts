@@ -42,6 +42,9 @@ export class LoginComponent implements OnInit {
             });
             if ( this.flag === 1) {
                 console.log('Utente trovato');
+
+                localStorage.setItem('isLoggedin', 'true');
+                console.log(Observable.of('isLoggedin'));
             } else {
                 console.log('Utente non trovato');
             }
