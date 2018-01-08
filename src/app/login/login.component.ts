@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
+
 import { Md5 } from '../../../node_modules/md5-typescript/Md5';
 import { AngularFireModule } from 'angularfire2';
 
@@ -33,8 +34,8 @@ export class LoginComponent implements OnInit {
     onLoggedin(email, password) {
         this.flag = 0;
         this.database.valueChanges().forEach(el => {
-            // const criptPassword = Md5.init(password);
-            const criptPassword = password;
+             const criptPassword = Md5.init(password);
+         //   const criptPassword = password;
             el.forEach(element => {
                 if (element.email === email && element.password === criptPassword) {
                     this.flag = 1;
