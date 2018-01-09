@@ -21,11 +21,13 @@ export class LoginComponent implements OnInit {
     database;
     dbref: AngularFireObject<any>;
     flag;
-
+    fullname: String;
+    name;
     // constructor(public router: Router) {}
 
     constructor(private db: AngularFireDatabase) {
         this.database = this.db.list('/account/recruiter/');
+        this.fullname = '';
     }
 
     ngOnInit() {
@@ -39,13 +41,17 @@ export class LoginComponent implements OnInit {
             el.forEach(element => {
                 if (element.email === email && element.password === criptPassword) {
                     this.flag = 1;
+                    this.fullname = element.fullname;
                 }
             });
             if ( this.flag === 1) {
                 console.log('Utente trovato');
 
                 localStorage.setItem('isLoggedin', 'true');
-                console.log(Observable.of('isLoggedin'));
+
+                sessionStorage.setItem('SessionName' , '' + this.fullname);
+                this.name = sessionStorage.getItem('SessionName');
+                console.log('stampo la sessione:', this.name );
             } else {
                 console.log('Utente non trovato');
             }

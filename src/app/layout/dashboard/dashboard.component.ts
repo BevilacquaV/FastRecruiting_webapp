@@ -1,5 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
+import { Router } from '@angular/router';
+import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
+
+
+import { Md5 } from '../../../../node_modules/md5-typescript/Md5';
+import { AngularFireModule } from 'angularfire2';
+
 
 @Component({
     selector: 'app-dashboard',
@@ -10,8 +20,14 @@ import { routerTransition } from '../../router.animations';
 export class DashboardComponent implements OnInit {
     public alerts: Array<any> = [];
     public sliders: Array<any> = [];
+    fullname: String;
+    database;
 
-    constructor() {
+    constructor(private db: AngularFireDatabase) {
+        this.database = this.db.list('/offertedilavoro/');
+
+        this.fullname = sessionStorage.getItem('SessionName');
+        /* console.log('Session dashboard: ', this.fullname); */
         this.sliders.push(
             {
                 imagePath: 'assets/images/slider1.jpg',
