@@ -5,7 +5,7 @@ import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
-
+import {Joboffer} from './joboffer';
 
 import { Md5 } from '../../../../node_modules/md5-typescript/Md5';
 import { AngularFireModule } from 'angularfire2';
@@ -22,9 +22,21 @@ export class DashboardComponent implements OnInit {
     public sliders: Array<any> = [];
     fullname: String;
     database;
+    public jobsofferlist: Array<any> = [];
+    public ob;
 
     constructor(private db: AngularFireDatabase) {
         this.database = this.db.list('/offertedilavoro/');
+
+        this.database.valueChanges().forEach(el => {
+            el.forEach(element => {
+                this.ob = new Joboffer(element.titolo, element.luogodilavoro, element.skill, element.annuncio,
+                    element.titolodistudio);
+                this.jobsofferlist.push(this.ob);
+                console.log('Annuncio: ', element.annuncio, ' Luogo di lavoro: ', element.luogodilavoro,
+                    ' titolo di studio: ', element.titolodistudio);
+            });
+        });
 
         this.fullname = sessionStorage.getItem('SessionName');
         /* console.log('Session dashboard: ', this.fullname); */
