@@ -16,8 +16,7 @@ const routes: Routes = [
             { path: 'grid', loadChildren: './grid/grid.module#GridModule' },
             { path: 'components', loadChildren: './bs-component/bs-component.module#BsComponentModule' },
             { path: 'selected-candidates', loadChildren: './selected-candidates/selected-candidates.module#SelectedCandidatesModule' },
-            { path: 'view-candidates', loadChildren: './view-candidates/view-candidates.module#ViewCandidatesModule' },
-            { path: 'prova', loadChildren: './prova/prova.module#ProvaModule' }
+            { path: 'view-candidates', loadChildren: './view-candidates/view-candidates.module#ViewCandidatesModule' }
         ]
     }
 ];
