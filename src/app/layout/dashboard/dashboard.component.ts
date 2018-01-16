@@ -24,19 +24,34 @@ export class DashboardComponent implements OnInit {
     database;
     public jobsofferlist: Array<any> = [];
     public ob;
+    items;
 
     constructor(private db: AngularFireDatabase) {
-        this.database = this.db.list('/offertedilavoro/');
+        this.database = this.db.list('/offertedilavoro/', ref => ref.orderByChild('titolo'));
+        /*
+        this.database.update('-L2Uoy3wW3mj9MHFX_Dg', { annuncio : 'ci sono' });
+        this.database.set('-L2Uoy3wW3mj9MHFX_Dg', { annuncio : 'modifica l intero oggetto' });
+        */
+        this.db.list('/offertedilavoro').snapshotChanges().map(actions => {
+            return actions.map(action => ({ key: action.key, ...action.payload.val() }));
+        }).subscribe(items => {
+            console.log('provo: ', items.forEach( it => console.log('it.key: ', it.key, it.titolo)));
+        });
 
+        /*
         this.database.valueChanges().forEach(el => {
             el.forEach(element => {
-                this.ob = new Joboffer(element.titolo, element.luogodilavoro, element.skill, element.annuncio,
-                    element.titolodistudio);
-                this.jobsofferlist.push(this.ob);
-                console.log('Annuncio: ', element.annuncio, ' Luogo di lavoro: ', element.luogodilavoro,
-                    ' titolo di studio: ', element.titolodistudio);
+                if (element.active === 'yes') {
+                    this.ob = new Joboffer(element.titolo, element.luogodilavoro, element.skill, element.annuncio,
+                        element.titolodistudio);
+                    this.jobsofferlist.push(this.ob);
+                    console.log('Annuncio: ', element.annuncio, ' Luogo di lavoro: ', element.luogodilavoro,
+                        ' titolo di studio: ', element.titolodistudio);
+                }
             });
+
         });
+        */
 
         this.fullname = sessionStorage.getItem('SessionName');
         /* console.log('Session dashboard: ', this.fullname); */

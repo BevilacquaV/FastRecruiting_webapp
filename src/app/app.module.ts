@@ -22,6 +22,7 @@ import {AngularFireModule} from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from './../environments/environment';
+import { ViewDetailsComponent } from './layout/view-details/view-details.component';
 
 
 
@@ -50,7 +51,7 @@ export function createTranslateLoader(http: HttpClient) {
         AngularFireDatabaseModule,
         AngularFireAuthModule
     ],
-    declarations: [AppComponent],
+    declarations: [AppComponent, ViewDetailsComponent],
     providers: [AuthGuard],
     bootstrap: [AppComponent]
 })
