@@ -25,6 +25,8 @@ export class DashboardComponent implements OnInit {
     public ob;
     items;
     value;
+    ref1;
+
     constructor(private db: AngularFireDatabase) {
         this.database = this.db.list('/offertedilavoro/', ref => ref.orderByChild('titolo'));
         /*
