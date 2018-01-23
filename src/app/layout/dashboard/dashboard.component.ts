@@ -10,7 +10,6 @@ import {Joboffer} from './joboffer';
 import { Md5 } from '../../../../node_modules/md5-typescript/Md5';
 import { AngularFireModule } from 'angularfire2';
 
-
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
@@ -25,19 +24,34 @@ export class DashboardComponent implements OnInit {
     public jobsofferlist: Array<any> = [];
     public ob;
     items;
-
+    value;
     constructor(private db: AngularFireDatabase) {
         this.database = this.db.list('/offertedilavoro/', ref => ref.orderByChild('titolo'));
         /*
         this.database.update('-L2Uoy3wW3mj9MHFX_Dg', { annuncio : 'ci sono' });
         this.database.set('-L2Uoy3wW3mj9MHFX_Dg', { annuncio : 'modifica l intero oggetto' });
-        */
+
         this.db.list('/offertedilavoro').snapshotChanges().map(actions => {
             return actions.map(action => ({ key: action.key, ...action.payload.val() }));
         }).subscribe(items => {
             console.log('provo: ', items.forEach( it => console.log('it.key: ', it.key, it.titolo)));
         });
 
+        */
+        this.db.list('/offertedilavoro', ref => ref.orderByChild('titolo')).snapshotChanges().map(actions => {
+            return actions.map(action => ({ key: action.key, ...action.payload.val() }));
+        }).subscribe(items => {
+            items.forEach( it => {
+                if ('yes' !== it.active) {
+                } else {
+                    this.ob = new Joboffer(it.titolo, it.luogodilavoro, it.skill, it.annuncio,
+                        it.titolodistudio, it.key);
+                    this.jobsofferlist.push(this.ob);
+                    console.log('Annuncio: ', it.annuncio, ' Luogo di lavoro: ', it.luogodilavoro,
+                        ' titolo di studio: ', it.titolodistudio, ' key: ', it.key);
+                }
+            });
+        });
         /*
         this.database.valueChanges().forEach(el => {
             el.forEach(element => {
@@ -51,8 +65,7 @@ export class DashboardComponent implements OnInit {
             });
 
         });
-        */
-
+*/
         this.fullname = sessionStorage.getItem('SessionName');
         /* console.log('Session dashboard: ', this.fullname); */
         this.sliders.push(

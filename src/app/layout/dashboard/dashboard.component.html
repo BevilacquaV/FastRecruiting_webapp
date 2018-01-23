@@ -17,9 +17,9 @@
     </div>
     <hr>
     <div *ngFor="let joboffer of jobsofferlist" class="alert alert-success">
-        <strong>Annuncio: </strong> {{joboffer.titolo}}
+        <strong>Annuncio: </strong> {{joboffer.titolo}} - {{joboffer.key}}
 
-        <div style="text-align: right;"><a [routerLink]="['/selected-candidates']" [routerLinkActive]="['router-link-active']">
+        <div style="text-align: right;"><a [routerLink]="['/selected-candidates', joboffer.key]" [routerLinkActive]="['router-link-active']">
            &nbsp;{{ 'Dettaglio Annuncio' }}
         </a>
         </div>

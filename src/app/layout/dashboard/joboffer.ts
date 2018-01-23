@@ -4,12 +4,14 @@ export class Joboffer {
     skill: String;
     annuncio: String;
     titolodistudio: String;
+    key: String;
 
-    constructor(titolo, luogodilavoro, skill, annuncio, titolodistudio) {
+    constructor(titolo, luogodilavoro, skill, annuncio, titolodistudio, key) {
        this.titolo = titolo;
        this.luogodilavoro = luogodilavoro;
        this.annuncio = annuncio;
        this.skill = skill;
        this.titolodistudio = titolodistudio;
+       this.key = key;
     }
 }
