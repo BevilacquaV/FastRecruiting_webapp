@@ -1,0 +1,50 @@
+<div>
+  <app-page-header [heading]="'Dettaglio annuncio'" [icon]="'fa-wrench'"></app-page-header>
+
+  <div class="row">
+    <div class="col-lg-6">
+
+      <form role="form">
+        <fieldset class="form-group">
+          <label>Titolo annuncio:</label>
+          <input type="text" class="form-control input-underline input-lg" id="titolo" placeholder="Titolo Annuncio" [(ngModel)]="job.titolo" name="titolo" #titolo>
+        </fieldset>
+
+        <fieldset class="form-group">
+          <label>Annuncio:</label>
+          <textarea class="form-control" rows="3" id="annuncio" placeholder="Annuncio" [(ngModel)]="job.annuncio" name="annuncio" #annuncio></textarea>
+        </fieldset>
+
+        <fieldset class="form-group">
+          <label>Titolo di studio:</label>
+          <input type="text" class="form-control input-underline input-lg" id="titolostudio" placeholder="Titolo Di Studio" [(ngModel)]="job.titolodistudio" #titolostudio name="titolodistudio">
+        </fieldset>
+
+        <fieldset class="form-group">
+          <label>Luogo di lavoro:</label>
+          <input type="text" class="form-control input-underline input-lg" id="luogo" placeholder="Luogo Lavoro" [(ngModel)]="job.luogodilavoro" #luogodilavoro name="luogodilavoro">
+        </fieldset>
+
+
+      </form>
+    </div>
+
+    <!-- /.row -->
+    <div class="col-xl-4">
+
+
+    </div>
+    <div class="col-xl-4">
+      <button type="submit" class="btn btn-secondary"  [routerLink]="['/dashboard']">Modifica</button>
+
+
+      <button type="reset" class="btn btn-secondary">Elimina</button>
+
+    </div>
+    <div class="col-xl-4 text-xs-center">
+
+    </div>
+
+
+  </div>
+</div>

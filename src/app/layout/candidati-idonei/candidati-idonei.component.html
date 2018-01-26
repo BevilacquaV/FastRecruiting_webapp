@@ -1,0 +1,25 @@
+<app-page-header [heading]="'Candidati Idonei'" [icon]="'fa fa-user'"></app-page-header>
+<div class="card mb-3">
+    <div class="card-header">Di seguito l'elenco dei candidati indicati <b>idonei</b> dal recruiter/assistente tecnico</div>
+    <table class="card-body table table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Fullname</th>
+            <th>Offerta Di Lavoro</th>
+            <th>Data</th>
+        </tr>
+        </thead>
+        <tbody *ngFor="let candidati of candidatilist">
+
+            <tr>
+                <th scope="row">{{candidati.number}}</th>
+                <td><a [routerLink]="['/dettaglio-candidatura', candidati.id_candidato]" [routerLinkActive]="['router-link-active']">
+                    &nbsp;{{candidati.fullname}}</a></td>
+                <td>{{candidati.offerta}}</td>
+                <td>{{candidati.data}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+

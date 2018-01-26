@@ -5,30 +5,29 @@ import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
-import {Joboffer} from './joboffer';
+import { Candidatura} from '../candidati-idonei/candidatura';
 
 import { Md5 } from '../../../../node_modules/md5-typescript/Md5';
 import { AngularFireModule } from 'angularfire2';
 
 @Component({
-    selector: 'app-dashboard',
-    templateUrl: './dashboard.component.html',
-    styleUrls: ['./dashboard.component.scss'],
-    animations: [routerTransition()]
+  selector: 'app-report',
+  templateUrl: './report.component.html',
+  styleUrls: ['./report.component.scss']
 })
-export class DashboardComponent implements OnInit {
+
+export class ReportComponent implements OnInit {
     public alerts: Array<any> = [];
     public sliders: Array<any> = [];
     fullname: String;
     database;
-    public jobsofferlist: Array<any> = [];
-    public ob;
+    public candidatilist: Array<any> = [];
+    ob: Candidatura;
     items;
     value;
-    ref1;
-
+    ref1 = 1;
     constructor(private db: AngularFireDatabase) {
-        this.database = this.db.list('/offertedilavoro/', ref => ref.orderByChild('titolo'));
+        this.database = this.db.list('/candidature/candidature_idonee');
         /*
         this.database.update('-L2Uoy3wW3mj9MHFX_Dg', { annuncio : 'ci sono' });
         this.database.set('-L2Uoy3wW3mj9MHFX_Dg', { annuncio : 'modifica l intero oggetto' });
@@ -40,15 +39,16 @@ export class DashboardComponent implements OnInit {
         });
 
         */
-        this.db.list('/offertedilavoro', ref => ref.orderByChild('titolo')).snapshotChanges().map(actions => {
+        this.db.list('/candidature/candidature_idonee').snapshotChanges().map(actions => {
             return actions.map(action => ({ key: action.key, ...action.payload.val() }));
         }).subscribe(items => {
             items.forEach( it => {
-                    this.ob = new Joboffer(it.titolo, it.luogodilavoro, it.skill, it.annuncio,
-                        it.titolodistudio, it.key);
-                    this.jobsofferlist.push(this.ob);
-                    console.log('Annuncio: ', it.annuncio, ' Luogo di lavoro: ', it.luogodilavoro,
-                        ' titolo di studio: ', it.titolodistudio, ' key: ', it.key);
+                this.ob = new Candidatura(this.ref1, it.id_candidato, it.id_offerta, it.data, it.key);
+                this.searchIdOfferta(it.id_offerta);
+                this.searchIdCandidato(it.id_candidato);
+                this.candidatilist.push(this.ob);
+
+                this.ref1++;
             });
         });
         /*
@@ -98,8 +98,34 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit() {}
 
-    public closeAlert(alert: any) {
-        const index: number = this.alerts.indexOf(alert);
-        this.alerts.splice(index, 1);
+    public searchIdOfferta(id: String) {
+        this.database = this.db.list('/offertedilavoro');
+        this.db.list('/offertedilavoro').snapshotChanges().map(actions => {
+            return actions.map(action => ({ key: action.key, ...action.payload.val() }));
+        }).subscribe(items => {
+            items.forEach( it => {
+                if (id !== it.key) {
+                } else {
+                    this.ob.offerta = it.titolo;
+                }
+            });
+        });
+    }
+
+    public searchIdCandidato(id: String) {
+        this.database = this.db.list('/account/candidati');
+        this.db.list('/account/candidati').snapshotChanges().map(actions => {
+            return actions.map(action => ({ key: action.key, ...action.payload.val() }));
+        }).subscribe(items => {
+            items.forEach( it => {
+                if (id !== it.key) {
+                } else {
+                    this.ob.fullname = it.fullname;
+                }
+            });
+        });
     }
 }
+
+
+

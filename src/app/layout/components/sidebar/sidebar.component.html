@@ -34,13 +34,13 @@
             <li class="nested" [class.expand]="showMenu === 'pages'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/tables']" [routerLinkActive]="['router-link-active']" class="list-group-item"><span><i class="fa fa-fw fa-table"></i>{{ 'Idonei' | translate }}</span></a>
+                        <a [routerLink]="['/candidati-idonei']" [routerLinkActive]="['router-link-active']" class="list-group-item"><span><i class="fa fa-fw fa-table"></i>{{ 'Idonei' | translate }}</span></a>
                     </li>
                     <li>
-                        <a [routerLink]="['/bs-element']" [routerLinkActive]="['router-link-active']" class="list-group-item"><span><i class="fa fa-fw fa-desktop"></i>{{ 'Non idonei' | translate }}</span></a>
+                        <a [routerLink]="['/candidati-non-idonei']" [routerLinkActive]="['router-link-active']" class="list-group-item"><span><i class="fa fa-fw fa-desktop"></i>{{ 'Non idonei' | translate }}</span></a>
                     </li>
                     <li>
-                        <a [routerLink]="['/grid']" [routerLinkActive]="['router-link-active']" class="list-group-item"><span><i class="fa fa-fw fa-wrench"></i>{{ 'Da verificare' | translate }}</span></a>
+                        <a [routerLink]="['/candidati-da-verificare']" [routerLinkActive]="['router-link-active']" class="list-group-item"><span><i class="fa fa-fw fa-wrench"></i>{{ 'Da verificare' | translate }}</span></a>
                     </li>
 
                     <!--
@@ -57,11 +57,11 @@
         <a [routerLink]="['/view-candidates']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-table"></i>&nbsp;{{ 'Visualizza Candidati' | translate }}
         </a>
-        <a [routerLink]="['/selected-candidates']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <a [routerLink]="['/pianifica-colloquio']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-th-list"></i>&nbsp;{{ 'Pianifica colloquio' | translate }}
         </a>
 
-        <a [routerLink]="['/selected-candidates']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <a [routerLink]="['/report']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;{{ 'Report' | translate }}
         </a>
         <!--
