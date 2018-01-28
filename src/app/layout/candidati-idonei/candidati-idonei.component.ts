@@ -46,6 +46,7 @@ export class CandidatiIdoneiComponent implements OnInit {
                     this.ob = new Candidatura(this.ref1, it.id_candidato, it.id_offerta, it.data, it.key);
                     this.searchIdOfferta(it.id_offerta);
                     this.searchIdCandidato(it.id_candidato);
+                    console.log('devo inviare questo: ', this.ob.key_candidatura)
                     this.candidatilist.push(this.ob);
 
                     this.ref1++;

@@ -4,7 +4,6 @@ import { DettaglioAnnuncioComponent} from './dettaglio-annuncio.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DettaglioAnnuncioRoutingModule } from './dettaglio-annuncio-routing.module';
 import {PageHeaderModule} from '../../shared';
-import {FormModule} from '../form/form.module';
 
 @NgModule({
   imports: [
