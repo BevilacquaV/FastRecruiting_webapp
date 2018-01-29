@@ -28,7 +28,7 @@ const routes: Routes = [
                 loadChildren: './candidati-da-verificare/candidati-da-verificare.module#CandidatiDaVerificareModule' },
             { path: 'dettaglio-annuncio/:key', loadChildren: './dettaglio-annuncio/dettaglio-annuncio.module#DettaglioAnnuncioModule' },
             { path: 'report', loadChildren: './report/report.module#ReportModule' },
-            { path: 'dettaglio-candidatura/:key/:fullname',
+            { path: 'dettaglio-candidatura/:key/:candidatura',
                 loadChildren: './dettaglio-candidatura/dettaglio-candidatura.module#DettaglioCandidaturaModule' },
             { path: 'pianifica-colloquio', loadChildren: './pianifica-colloquio/pianifica-colloquio.module#PianificaColloquioModule' }
         ]

@@ -1,118 +1,92 @@
 <div>
-  <app-page-header [heading]="'Pubblica annuncio'" [icon]="'fa-wrench'"></app-page-header>
-
-  <div class="row">
-    <div class="col-lg-6">
-
-      <form role="form">
-        <fieldset class="form-group">
-          <label>Titolo annuncio:</label>
-          <input type="text" class="form-control input-underline input-lg" id="titolo" placeholder="Titolo Annuncio" #titolo>
-        </fieldset>
-
-        <fieldset class="form-group">
-          <label>Annuncio:</label>
-          <textarea class="form-control" rows="3" id="annuncio" placeholder="Annuncio" #annuncio></textarea>
-        </fieldset>
-
-        <fieldset class="form-group">
-          <label>Titolo di studio:</label>
-          <input type="text" class="form-control input-underline input-lg" id="titolostudio" placeholder="Titolo Di Studio" #titolostudio>
-        </fieldset>
-
-        <fieldset class="form-group">
-          <label>Luogo di lavoro:</label>
-          <input type="text" class="form-control input-underline input-lg" id="luogo" placeholder="Luogo Lavoro" #luogolavoro>
-        </fieldset>
-
-
-      </form>
-    </div>
-
-
-
-
-
-
+    <app-page-header [heading]="'Pubblica annuncio'" [icon]="'fa-wrench'"></app-page-header>
 
     <div class="row">
-      <div class="col col-xl-12 col-lg-12">
-        <div class="card mb-3">
-          <div class="card-header" align="center">
-           Skill richieste
-          </div>
-          <div class="card-body table-responsive">
-            <form role="form">
-            <table class="table">
-              <tr>
-                <td> Inserisci skill</td>
-                <td> <input type="text" class="form-control input-underline input-lg" id="skillInput" placeholder="Skill" #skillInput></td>
-              <td><button type="button" class="btn btn-sm btn-secondary" (click)="onAddCheckbox(skillInput.value)">inserisci</button></td>
+        <div class="col-lg-6">
 
-              </tr>
+            <form role="form" >
+                <fieldset class="form-group">
+                    <label>Titolo annuncio:</label>
+                    <input    [(ngModel)]= "job.titolo" type="text" class="form-control input-underline input-lg" id="titolo" placeholder="Titolo Annuncio" #titolo  name="titolo">
+                </fieldset>
 
-<div id="skills" #skills>
-              <tr>
-             <!-- <md-checkbox ng-checked="exists(item, selected)" ng-click="toggle(item, selected)">
-                {{ item }} <span ng-if="exists(item, selected)">selected</span>
-              </md-checkbox> -->
+                <fieldset class="form-group">
+                    <label>Annuncio:</label>
+                    <textarea  [(ngModel)]= "job.annuncio"class="form-control" rows="3" id="annuncio" placeholder="Annuncio" #annuncio name="annuncio" ></textarea>
+                </fieldset>
 
-              <td><input type="checkbox" value="java" id="java"   #java name="skill"  (change)="onAddCheckbox(java)"  > Java</td>
-                <td align="center"> <input type="checkbox" value="C"  id="c"  #c   name="skill" (change)="onAddCheckbox(c)"> C </td>
-                <td> <input type="checkbox" value="HTML" id="html"  #html name="skill" > HTML</td>
-              </tr>
+                <fieldset class="form-group">
+                    <label>Titolo di studio:</label>
+                    <input [(ngModel)]= "job.titolodistudio" type="text" class="form-control input-underline input-lg" id="titolostudio" placeholder="Titolo Di Studio" #titolostudio name="titolodistudio">
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label>Luogo di lavoro:</label>
+                    <input [(ngModel)]= "job.luogodilavoro"  type="text" class="form-control input-underline input-lg" id="luogo" placeholder="Luogo Lavoro" #luogolavoro name="luogodilavoro">
+                </fieldset>
 
 
-              <tr>
-                <td><input type="checkbox" value="CSS" id="css"  #css  name="skill"> CSS</td>
-                <td align="center"> <input type="checkbox" value="PHP" id="php"  #php name="skill"> PHP</td>
-                <td> <input type="checkbox" value="JavaScript" id="javascript"  #javascript> Javascript</td>
-              </tr>
-              <tr>
-                <td>  <input type="checkbox" value="SQL" id="sql"  #sql name="skill" > SQL</td>
-                <td align="center"> <input type="checkbox" value="XML" id="xml"  #xml name="skill"> XML</td>
-                <td> <input type="checkbox" value="AJAX" id="ajax"  #ajax name="skill"> AJAX</td>
-              </tr>
-              <tr>
-
-                <td><input type="checkbox" value="Android" id="android"  #android> Android</td>
-                <td align="center"><input type="checkbox" value="Angular" id="angular"  #android> Agular</td>
-                <td><input type="checkbox" value="Cordova" id="cordova"  #android> Cordova</td>
-              </tr>
-
-</div>
-              <tr>
-                <div *ngFor="let check of checklist" >
-                  <td><input type="checkbox" value="{{ check.checkval }}" id="{{ check.checkval }}">  {{check.checkval}}</td>
-
-                </div>
-              </tr>
-
-            </table>
             </form>
-          </div>
         </div>
-      </div>
+        <form role="form">
+            <div class="row">
+                <div class="col col-xl-12 col-lg-12">
+                    <div class="card mb-3">
+                        <div class="card-header" align="center">
+                            Skill richieste
+                        </div>
+                        <div class="card-body table-responsive">
+                            <form role="form" #formselect>
+                                <table class="table">
+                                    <tr>
+                                        <td> Inserisci skill</td>
+                                        <td> <input  type="text"  class="form-control input-underline input-lg" name="skillInput" placeholder="Skill" #skillInput ></td>
+                                        <td><button type="submit" class="btn btn-sm btn-secondary"  [routerLink]="['/public-ad']" (click)="onControlSkill(skillInput.value)" >inserisci</button></td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td> <label>Skill possedute</label></td>
+
+                                        <td>
+                                            <fieldset class="form-group" >
+
+                                               <select  [(ngModel)]="job.skill" multiple="" class="form-control" name="select">
+                                                    <option *ngFor="let list of list" >{{ list.nome }}</option>
+
+                                                </select>
+                                            </fieldset>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td td colspan="3">
+
+                                            <input disabled [(ngModel)]="job.skill" type="text" class="form-control input-underline input-lg"  name="skillscelte">
+
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+
+        <div class="col-xl-4">
+        </div>
+        <div class="col-xl-4">
+            <button type="submit" class="btn btn-secondary"   (click)="onPublicAd()">pubblica</button>
+            <button type="reset" class="btn btn-secondary" [routerLink]="['/dashboard']">cancella</button>
+        </div>
+        <div class="col-xl-4 text-xs-center">
+
+        </div>
+
+
     </div>
-
-
-
-    <!-- /.row -->
-    <div class="col-xl-4">
-
-
-    </div>
-    <div class="col-xl-4">
-        <button type="submit" class="btn btn-secondary"  [routerLink]="['/dashboard']" (click)="onPublicAd(titolo.value, annuncio.value, titolostudio.value,luogolavoro.value)">pubblica</button>
-
-
-      <button type="reset" class="btn btn-secondary">cancella</button>
-
-    </div>
-    <div class="col-xl-4 text-xs-center">
-
-    </div>
-
-
-  </div>
 </div>

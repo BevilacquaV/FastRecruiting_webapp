@@ -14,7 +14,7 @@
 
             <tr>
                 <th scope="row">{{candidati.number}}</th>
-                <td><a [routerLink]="['/dettaglio-candidatura', candidati.key_candidatura, candidati.fullname]" [routerLinkActive]="['router-link-active']">
+                <td><a [routerLink]="['/dettaglio-candidatura', candidati.key_candidatura, 'candidature_idonee']" [routerLinkActive]="['router-link-active']">
                     &nbsp;{{candidati.fullname}}</a></td>
                 <td>{{candidati.offerta}}</td>
                 <td>{{candidati.data}}</td>

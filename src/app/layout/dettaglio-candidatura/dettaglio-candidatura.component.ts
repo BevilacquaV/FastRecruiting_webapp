@@ -34,29 +34,22 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
     public candidatilist: Array<any> = [];
     fullname;
     ref1;
-    ff: String;
+    who_candidatura: String;
     constructor(private db: AngularFireDatabase, private route: ActivatedRoute, private fff: FirebaseApp) {
 
         this.sub = this.route.params.subscribe(params => {
             this.key = params['key'];
-            this.ff = params['fullname'];
-            console.log('leggoooooo---: ', params['key'], this.ff);
+            this.who_candidatura = params['candidatura'];
+            console.log('key: ', params['key'], ' page_id: ', this.who_candidatura);
         });
 
         this.ref1 = 0;
-        this.database = this.db.list('/candidature/candidature_idonee');
         /*
+         this.database = this.db.list('/candidature/' + this.who_candidatura);
         this.database.update('-L2Uoy3wW3mj9MHFX_Dg', { annuncio : 'ci sono' });
         this.database.set('-L2Uoy3wW3mj9MHFX_Dg', { annuncio : 'modifica l intero oggetto' });
 
-        this.db.list('/offertedilavoro').snapshotChanges().map(actions => {
-            return actions.map(action => ({ key: action.key, ...action.payload.val() }));
-        }).subscribe(items => {
-            console.log('provo: ', items.forEach( it => console.log('it.key: ', it.key, it.titolo)));
-        });
-
-        */
-        this.db.list('/candidature/candidature_idonee').snapshotChanges().map(actions => {
+        this.db.list('/candidature/' + this.who_candidatura).snapshotChanges().map(actions => {
             return actions.map(action => ({ key: action.key, ...action.payload.val() }));
         }).subscribe(items => {
             items.forEach( it => {
@@ -66,15 +59,34 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
                 this.ref1++;
             });
         });
+        */
 
-        /*
-        Qui funziona
-         */
-        this.ref = fff.database().ref('/offertedilavoro');
+        this.ref = fff.database().ref('/candidature/' + this.who_candidatura + '/' + this.key);
         this.ref.once('value')
             .then(function(snapshot) {
                 console.log('snapshot numChildren: ', snapshot.numChildren());
-                console.log('child element: ', snapshot.child('-L2UpPY2VQxcrXc9fZUK/titolo').val());
+                console.log('Titolo di studio: ', snapshot.child('titolodistudio').val());
+                console.log('PATH CV: ', snapshot.child('cv').val());
+                console.log('Data: ', snapshot.child('data').val());
+                console.log('Data Colloquio: ', snapshot.child('data_colloquio').val());
+                console.log('Google Maps: ', snapshot.child('google_maps').val());
+                console.log('Id Candidato: ', snapshot.child('id_candidato').val());
+                console.log('Id offerta: ', snapshot.child('id_offerta').val());
+                console.log('Id Tecnico: ', snapshot.child('id_tecnico').val());
+                console.log('Lettera di presentazione: ', snapshot.child('lett_present').val());
+                console.log('Luogo Colloquio: ', snapshot.child('luogo_colloquio').val());
+                console.log('Note candidato: ', snapshot.child('note').val());
+                console.log('Note recruiter: ', snapshot.child('note_recruiter').val());
+                console.log('Note tecnico: ', snapshot.child('note_tecnico').val());
+                console.log('Orario colloquio: ', snapshot.child('orario_colloquio').val());
+                console.log('Skill: ', snapshot.child('skill').val());
+
+                /*
+                CONTROLLO SE ESISTE UN FIGLIO.
+                if (snapshot.hasChild('skill')) {
+                    alert('exists');
+                }
+                */
                 /*
                 this.name = snapshot.child('-L2UpPY2VQxcrXc9fZUK').val();
 
@@ -83,21 +95,7 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
                 */
             });
 
-        /*
-        qui provo ad accedere proprio alla key
-         */
-        this.ref = fff.database().ref('/offertedilavoro/-L3bTqgbEl7lxcqdm10s');
-        this.ref.once('value')
-            .then(function(snapshot) {
-                console.log('snapshot numChildren: ', snapshot.numChildren());
-                console.log('child element: ', snapshot.child('titolodistudio').val());
-                /*
-                this.name = snapshot.child('-L2UpPY2VQxcrXc9fZUK').val();
 
-                this.fullname = snapshot.child(this.key + '/titolo').val();
-                console.log('Hooooooo.... this.name: ', this.name, ' this.fullname: ', this.fullname);
-                */
-            });
     }
 
     ngOnInit() {

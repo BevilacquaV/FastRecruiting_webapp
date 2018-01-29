@@ -23,6 +23,8 @@ export class LoginComponent implements OnInit {
     flag;
     fullname: String;
     name;
+    key: String;
+    email: string;
     // constructor(public router: Router) {}
 
     constructor(private db: AngularFireDatabase) {
@@ -42,6 +44,7 @@ export class LoginComponent implements OnInit {
                 if (element.email === email && element.password === criptPassword) {
                     this.flag = 1;
                     this.fullname = element.fullname;
+                    this.email = element.email;
                 }
             });
             if ( this.flag === 1) {
@@ -52,9 +55,22 @@ export class LoginComponent implements OnInit {
                 sessionStorage.setItem('SessionName' , '' + this.fullname);
                 this.name = sessionStorage.getItem('SessionName');
                 console.log('stampo la sessione:', this.name );
+                sessionStorage.setItem('SessionEmail', '' + this.email);
             } else {
                 console.log('Utente non trovato');
             }
+        });
+
+        this.db.list('/account/recruiter/').snapshotChanges().map(actions => {
+            return actions.map(action => ({ key: action.key, ...action.payload.val() }));
+        }).subscribe(items => {
+            items.forEach( it => {
+                if (it.email === email ) {
+                    this.key = it.key ;
+                    sessionStorage.setItem('SessionKEy' , '' + this.key);
+                    this.key = sessionStorage.getItem('SessionKEy');
+                }
+            });
         });
     }
 }
