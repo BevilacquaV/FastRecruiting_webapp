@@ -32,8 +32,8 @@ export class PublicAdComponent implements OnInit {
 
     public selectedllist: Array<any> = [];
 
-
-    constructor(private db: AngularFireDatabase) {
+    constructor(private db: AngularFireDatabase, private r: Router) {
+        this.router = r;
         this.job = {titolo: '', luogodilavoro: '', skill: '', annuncio: '', titolodistudio: '', key: ''};
         this.flag = false;
         this.i = 0;
@@ -65,6 +65,7 @@ export class PublicAdComponent implements OnInit {
             };
             console.log(saveData);
             this.databasePubblica.push(saveData);
+            this.router.navigateByUrl('/dashboard');
 
         }
 

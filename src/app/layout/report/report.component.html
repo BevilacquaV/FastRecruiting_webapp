@@ -7,6 +7,7 @@
       <th>#</th>
       <th>Fullname</th>
       <th>Offerta Di Lavoro</th>
+      <th>Luogo Colloquio</th>
       <th>Data & Ora</th>
     </tr>
     </thead>
@@ -14,10 +15,12 @@
 
     <tr>
       <th scope="row">{{candidati.number}}</th>
-      <td><a [routerLink]="['/dettaglio-candidatura', candidati.id_candidato]" [routerLinkActive]="['router-link-active']">
+      <td><a [routerLink]="['/dettaglio-candidatura', candidati.key_candidatura, 'candidature_idonee']" [routerLinkActive]="['router-link-active']">
         &nbsp;{{candidati.fullname}}</a></td>
       <td>{{candidati.offerta}}</td>
-      <td>{{candidati.data}}</td>
+      <td>{{candidati.luogoColloquio}} <a href="{{candidati.linkGoogleMaps}}">
+        &nbsp;Google Maps</a></td>
+      <td>{{candidati.dataCandidatura}} - {{candidati.orarioColloquio}}</td>
     </tr>
     </tbody>
   </table>

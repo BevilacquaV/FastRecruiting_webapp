@@ -15,7 +15,7 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control input-underline input-lg" id="telefono" placeholder="Telefono" #telefono>
+                        <input type="text" class="form-control input-underline input-lg" id="telefono" placeholder="Phone" #telefono>
                     </div>
 
                     <div class="form-group">
@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <a class="btn rounded-btn" [routerLink]="['/dashboard']" (click)="onSignup(fullname.value, email.value,password.value,repeatpassword.value, telefono.value)"> Register </a>&nbsp;
-                <a class="btn rounded-btn" [routerLink]="['/login']"> Log in </a>
+                <a class="btn rounded-btn" [routerLink]="['/login']"> Login </a>
             </form>
         </div>
     </div>

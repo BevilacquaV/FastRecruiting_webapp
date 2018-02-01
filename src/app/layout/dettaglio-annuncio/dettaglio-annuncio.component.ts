@@ -26,12 +26,14 @@ export class DettaglioAnnuncioComponent implements OnInit, OnDestroy {
     sub;
     databaseskill;
     public skill: Skills = {nome: ''};
+    router: Router;
 
-    constructor(private db: AngularFireDatabase, private route: ActivatedRoute, private router: Router) {
+    constructor(private db: AngularFireDatabase, private route: ActivatedRoute, private r: Router) {
 
         this.i = 0;
         this.j = 0;
         this.n = 0;
+        this.router = r;
 
         this.database = this.db.list('/skill/');
         this.database.valueChanges().forEach(el => {
@@ -77,6 +79,7 @@ export class DettaglioAnnuncioComponent implements OnInit, OnDestroy {
         this.onUpdateTitolodistudio();
         this.onUpdateLuogodilavoro();
         this.onAggiornaSkills();
+        this.router.navigateByUrl('/dashboard');
 
     }
 
@@ -104,21 +107,6 @@ export class DettaglioAnnuncioComponent implements OnInit, OnDestroy {
         this.db.list('/offertedilavoro').remove(this.key);
         this.router.navigateByUrl('/dashboard');
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     onControlSkill(skill: string) {
         this.database = this.db.list('/skill/');

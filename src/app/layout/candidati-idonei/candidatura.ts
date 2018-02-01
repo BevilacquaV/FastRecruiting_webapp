@@ -20,6 +20,7 @@ export class Candidatura {
     noteTecnico: String;
     orarioColloquio: String;
     skillCandidato: String;
+    fullnameTecnico: String;
     /*
     constructor(number, fullname, offerta, data, key_candidatura) {
         this.data = data;
@@ -29,15 +30,42 @@ export class Candidatura {
         this.offerta = offerta;
     }
 */
-    constructor(fullname, offerta, data, key_candidatura) {
-        this.data = data;
-        this.fullname = fullname;
-        this.key_candidatura = key_candidatura;
-        this.offerta = offerta;
+    constructor() {
+        this.number = 1;
+        this.fullname = '';
+        this.key_candidatura = '';
+        this.offerta = '';
+        this.fullnameTecnico = '';
+        this.titolodistudio = '';
+        this.pathCV = '';
+        this.dataCandidatura = '';
+        this.dataColloquio = '';
+        this.linkGoogleMaps = '';
+        this.idCandidato = '';
+        this.idOfferta = '';
+        this.idTecnico = '';
+        this.pathLettPresent = '';
+        this.noteCandidato = '';
+        this.luogoColloquio = '';
+        this.noteRecruiter = '';
+        this.noteTecnico = '';
+        this.orarioColloquio = '';
+        this.skillCandidato = '';
+    }
+
+    public setNameOfferta(nameOfferta) {
+        this.offerta = nameOfferta;
+    }
+    public setFullnameTecnico(fullnameTecnico) {
+        this.fullnameTecnico = fullnameTecnico;
     }
 
     public setNumber(number) {
         this.number = number;
+    }
+
+    public setFullname(fullname) {
+        this.fullname = fullname;
     }
 
     public setTitoloDiStudio(titolodistudio) {
@@ -98,5 +126,9 @@ export class Candidatura {
 
     public setSkillCandidato(skillCandidato) {
         this.skillCandidato = skillCandidato;
+    }
+
+    public setKeyCandidatura(key_candidatura) {
+        this.key_candidatura = key_candidatura;
     }
 }
