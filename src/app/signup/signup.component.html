@@ -15,13 +15,17 @@
                     </div>
 
                     <div class="form-group">
+                        <input type="text" class="form-control input-underline input-lg" id="telefono" placeholder="Telefono" #telefono>
+                    </div>
+
+                    <div class="form-group">
                         <input type="password" class="form-control input-underline input-lg" id="password" placeholder="Password" #password>
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control input-underline input-lg" id="repeatpassword" placeholder="Repeat Password" #repeatpassword>
                     </div>
                 </div>
-                <a class="btn rounded-btn" [routerLink]="['/dashboard']" (click)="onSignup(fullname.value, email.value,password.value,repeatpassword.value)"> Register </a>&nbsp;
+                <a class="btn rounded-btn" [routerLink]="['/dashboard']" (click)="onSignup(fullname.value, email.value,password.value,repeatpassword.value, telefono.value)"> Register </a>&nbsp;
                 <a class="btn rounded-btn" [routerLink]="['/login']"> Log in </a>
             </form>
         </div>

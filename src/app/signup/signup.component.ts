@@ -26,14 +26,14 @@ export class SignupComponent implements OnInit {
 
     ngOnInit() {}
 
-    onSignup(fullname: string, email: string, password: string, repeatpassword: string ) {
+    onSignup(fullname: string, email: string, password: string, repeatpassword: string , telefono: string) {
         const md5password = Md5.init(password);
         const md5repeatpassword = Md5.init(repeatpassword);
         if (md5password !== md5repeatpassword ) {
             alert(' password diverse');
         }
         console.log(md5password);
-        const saveData = {fullname: fullname, email: email,  password: md5password};
+        const saveData = {fullname: fullname, email: email,  password: md5password, telefono: telefono};
         console.log(saveData);
         this.database.push(saveData);
         console.log('Utente salvato');

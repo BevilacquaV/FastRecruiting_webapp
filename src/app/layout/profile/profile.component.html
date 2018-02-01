@@ -1,6 +1,12 @@
 <app-page-header [heading]="'Profilo'" [icon]="'fa fa-user'"></app-page-header>
 <div class="row">
-
+  <div style="text-align: center;" id="msg" [innerHTML]="divText">
+    <!--
+    <div class="alert alert-success">
+      <strong>Perfetto!</strong> Questa candidatura risulta IDONEA.
+    </div>
+    -->
+  </div>
   <div class="col-xl-6" style="text-align: center; margin-left: 25%">
     <div #img>
       <img src="assets/images/account.png" class="user-avatar" style="width:150px; height: 150px;">
@@ -28,18 +34,19 @@
 
         <fieldset class="form-group">
           <label>Vecchia Password:</label>
-          <input   type="password" class="form-control input-underline input-lg"  id="password" #password>
+          <input   type="password" [(ngModel)]="recruiter.password" class="form-control input-underline input-lg"  name="password" id="password" #password>
         </fieldset>
 
         <fieldset class="form-group">
           <label>Nuova Password:</label>
-          <input   [(ngModel)]="recruiter.password" type="password" class="form-control input-underline input-lg"  name="nuovapassword">
+          <input   [(ngModel)]="recruiter.nuovapassword" type="password" class="form-control input-underline input-lg"  id="nuovapassword" name="nuovapassword" #nuovapassword>
         </fieldset>
 
           <fieldset class="form-group" style="text-align: center;">
-          <button type="submit" class="btn btn-secondary"  [routerLink]="['/dashboard']" (click)="onControllPassword(password.value)" >modifica</button>
-          <button type="reset" class="btn btn-secondary" [routerLink]="['/dashboard']">cancella</button>
+          <button type="submit" class="btn btn-secondary" (click)="onControllPassword('msg')" >Modifica</button>
+          <button type="reset" class="btn btn-secondary" [routerLink]="['/dashboard']">Annulla</button>
         </fieldset>
+
 
       </form>
   </fieldset>

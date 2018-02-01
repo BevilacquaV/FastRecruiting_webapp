@@ -44,7 +44,8 @@ export class CandidatiNonIdoneiComponent implements OnInit {
             return actions.map(action => ({ key: action.key, ...action.payload.val() }));
         }).subscribe(items => {
             items.forEach( it => {
-                this.ob = new Candidatura(this.ref1, it.id_candidato, it.id_offerta, it.data, it.key);
+                this.ob = new Candidatura(it.id_candidato, it.id_offerta, it.data, it.key);
+                this.ob.setNumber(this.ref1);
                 this.searchIdOfferta(it.id_offerta);
                 this.searchIdCandidato(it.id_candidato);
                 this.candidatilist.push(this.ob);

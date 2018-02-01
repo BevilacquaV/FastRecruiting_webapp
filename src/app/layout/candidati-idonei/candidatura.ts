@@ -20,12 +20,24 @@ export class Candidatura {
     noteTecnico: String;
     orarioColloquio: String;
     skillCandidato: String;
+    /*
     constructor(number, fullname, offerta, data, key_candidatura) {
         this.data = data;
         this.fullname = fullname;
         this.key_candidatura = key_candidatura;
         this.number = number;
         this.offerta = offerta;
+    }
+*/
+    constructor(fullname, offerta, data, key_candidatura) {
+        this.data = data;
+        this.fullname = fullname;
+        this.key_candidatura = key_candidatura;
+        this.offerta = offerta;
+    }
+
+    public setNumber(number) {
+        this.number = number;
     }
 
     public setTitoloDiStudio(titolodistudio) {

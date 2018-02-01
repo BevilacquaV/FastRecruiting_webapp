@@ -31,124 +31,57 @@
 
   <app-page-header [heading]="'Dettaglio Candidatura'" [icon]="'fa-edit'"></app-page-header>
 
-  <div class="row">
+<div style="text-align: center;">
+  <div class="alert alert-success">
+    <strong>Perfetto!</strong> Questa candidatura risulta IDONEA. {{fullname}}
+  </div>
+</div>
+<div class="row">
     <div class="col-lg-6">
-     <!--  <h4>Dettaglio candidato</h4> -->
+
       <form role="form">
         <fieldset class="form-group">
-          <label style="font-weight: bold; color:#000">Fullname: </label> Stampo la variabile ref1: {{ref1}}
+          <label style="font-weight: bold; color:#000">Fullname</label>
+          <p class="help-block">Antonio {{ref1}}</p>
+        </fieldset>
+        <hr/>
           <!-- <p class="help-block">Qui stampa il fullname.</p> -->
+        <fieldset class="form-group">
+          <label style="font-weight: bold; color:#000">Titolo di studio</label>
+          <p class="help-block">Laurea Triennale .. </p>
         </fieldset>
+        <hr/>
+          <!-- <input class="form-control" placeholder="Enter text"> -->
 
         <fieldset class="form-group">
-          <label>Titolo di studio</label>
-          <p class="help-block">Qui il titolo di studi.</p>
-          <input class="form-control" placeholder="Enter text">
+          <label style="font-weight: bold; color:#000">Skill</label>
+          <p class="help-block">Java; C; HTML </p>
         </fieldset>
-
-        <div class="form-group">
-          <label>Lettera di presentazione</label>
-          <p class="form-control-static">Qui il file</p>
-        </div>
+        <hr/>
 
         <fieldset class="form-group">
-          <label for="exampleInputFile">File input</label>
-          <input type="file" class="form-control-file" id="exampleInputFile">
+          <label style="font-weight: bold; color:#000">Titolo di studio</label>
+          <p class="help-block">Laurea Triennale .. </p>
         </fieldset>
+        <hr/>
 
         <fieldset class="form-group">
-          <label>Text area</label>
-          <textarea class="form-control" rows="3"></textarea>
+          <label style="font-weight: bold; color:#000">Note</label>
+          <p class="help-block">Qui le note del candidato </p>
         </fieldset>
-
-        <div class="form-group">
-          <label>Checkboxes</label>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" value=""> Checkbox 1
-            </label>
-          </div>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" value=""> Checkbox 2
-            </label>
-          </div>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" value=""> Checkbox 3
-            </label>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Inline Checkboxes</label>
-          <label class="checkbox-inline">
-            <input type="checkbox">1
-          </label>
-          <label class="checkbox-inline">
-            <input type="checkbox">2
-          </label>
-          <label class="checkbox-inline">
-            <input type="checkbox">3
-          </label>
-        </div>
+        <hr/>
 
         <fieldset class="form-group">
-          <label>Radio Buttons</label>
-          <div class="radio">
-            <label>
-              <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked=""> Radio 1
-            </label>
-          </div>
-          <div class="radio">
-            <label>
-              <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2"> Radio 2
-            </label>
-          </div>
-          <div class="radio">
-            <label>
-              <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3"> Radio 3
-            </label>
-          </div>
+          <label style="font-weight: bold; color:#000">Curriculum Vitae</label>
+          <p class="help-block"><a target="_blank" href="http://v4-alpha.getbootstrap.com/components/forms/">clicca qui..</a> </p>
         </fieldset>
+        <hr/>
 
         <fieldset class="form-group">
-          <label>Inline Radio Buttons</label>
-          <label class="radio-inline">
-            <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" value="option1" checked="">1
-          </label>
-          <label class="radio-inline">
-            <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline2" value="option2">2
-          </label>
-          <label class="radio-inline">
-            <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline3" value="option3">3
-          </label>
+          <label style="font-weight: bold; color:#000">Lettera di presentazione</label>
+          <p class="help-block"><a target="_blank" href="http://v4-alpha.getbootstrap.com/components/forms/">clicca qui..</a> </p>
         </fieldset>
-
-        <div class="form-group">
-          <label>Selects</label>
-          <select class="form-control">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-        </div>
-
-        <fieldset class="form-group">
-          <label>Multiple Selects</label>
-          <select multiple="" class="form-control">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-        </fieldset>
-
-        <button type="submit" class="btn btn-secondary">Submit Button</button>
-        <button type="reset" class="btn btn-secondary">Reset Button</button>
+        <hr/>
 
       </form>
 
@@ -158,90 +91,40 @@
 
       <form role="form">
 
-        <fieldset disabled="">
-          <h4>Dettaglio offerta</h4>
-          <div class="form-group">
-            <label for="disabledSelect">Offerta Di Lavoro</label>
-            <p class="help-block">Qui stampo l'offerta di lavoro.</p>
-            <input class="form-control" id="disabledInput" type="text" placeholder="Disabled input" disabled="">
+        <fieldset class="form-group">
+        <label style="font-weight: bold; color:#000">Offerta di lavoro</label>
+        <p class="help-block">Qui l'offerta di lavoro </p>
+      </fieldset>
+        <hr/>
 
-          </div>
-
-          <div class="form-group">
-            <label for="disabledSelect">Disabled select menu</label>
-            <select id="disabledSelect" class="form-control">
-              <option>Disabled select</option>
-            </select>
-          </div>
-
-          <div class="checkbox">
-            <label>
-              <input type="checkbox"> Disabled Checkbox
-            </label>
-          </div>
-
-          <button type="submit" class="btn btn-primary">Disabled Button</button>
-
+        <fieldset class="form-group">
+          <label style="font-weight: bold; color:#000">Colloquio in data</label>
+          <p class="help-block"> 12/12/2018 16:00</p>
         </fieldset>
+        <hr/>
 
-      </form>
-      <br>
+        <fieldset class="form-group">
+          <label style="font-weight: bold; color:#000">Luogo colloquio</label>
+          <p class="help-block"> Salerno <a target="_blank" href="http://v4-alpha.getbootstrap.com/components/forms/">Google Maps</a></p>
+        </fieldset>
+        <hr/>
 
-      <h4>Form Validation</h4>
+        <fieldset class="form-group">
+          <label style="font-weight: bold; color:#000">Note recruiter</label>
+          <p class="help-block"> Qui le note del recruiter</p>
+        </fieldset>
+        <hr/>
 
-      <form role="form">
-
-        <div class="form-group has-success">
-          <label class="form-control-label" for="inputSuccess">Input with success</label>
-          <input type="text" class="form-control form-control-success" id="inputSuccess">
+        <fieldset class="form-group">
+          <label style="font-weight: bold; color:#000">Note assist. tecnico</label>
+          <p class="help-block"> Qui le note del assist. tecnico</p>
+        </fieldset>
+        <hr/>
+        <div style="text-align: center;">
+        <button type="button" class="btn btn-success" name="buttonpianifica" #buttonpianifica>Pianifica colloquio</button>
         </div>
+               </form>
 
-        <div class="form-group has-warning">
-          <label class="form-control-label" for="inputWarning">Input with warning</label>
-          <input type="text" class="form-control form-control-warning" id="inputWarning">
-        </div>
-
-        <div class="form-group has-danger">
-          <label class="form-control-label" for="inputError">Input with danger</label>
-          <input type="text" class="form-control form-control-danger" id="inputError">
-        </div>
-
-      </form>
-
-      <h4>Input Groups</h4>
-
-      <form role="form">
-
-        <div class="form-group input-group">
-          <span class="input-group-addon">@</span>
-          <input type="text" class="form-control" placeholder="Username">
-        </div>
-
-        <div class="form-group input-group">
-          <input type="text" class="form-control">
-          <span class="input-group-addon">.00</span>
-        </div>
-
-        <div class="form-group input-group">
-          <span class="input-group-addon"><i class="fa fa-eur"></i></span>
-          <input type="text" class="form-control" placeholder="Font Awesome Icon">
-        </div>
-
-        <div class="form-group input-group">
-          <span class="input-group-addon">$</span>
-          <input type="text" class="form-control">
-          <span class="input-group-addon">.00</span>
-        </div>
-
-        <div class="form-group input-group">
-          <input type="text" class="form-control">
-          <span class="input-group-btn"><button class="btn btn-secondary" type="button"><i class="fa fa-search"></i></button></span>
-        </div>
-
-      </form>
-
-      <p>For complete documentation, please visit <a target="_blank" href="http://v4-alpha.getbootstrap.com/components/forms/">Bootstrap's Form Documentation</a>.</p>
 
     </div>
-  </div>
   <!-- /.row -->

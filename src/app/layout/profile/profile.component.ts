@@ -4,6 +4,7 @@ import 'rxjs/add/operator/toPromise';
 import {Recruiter} from './recruiter';
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { Md5 } from '../../../../node_modules/md5-typescript/Md5';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -13,24 +14,27 @@ import { Md5 } from '../../../../node_modules/md5-typescript/Md5';
 export class ProfileComponent implements OnInit {
 
     recruiter: Recruiter;
-    flag= false;
+    flag = 0;
     criptPassword2;
     i= 0;
     email: string;
     key: string;
     public database;
-    constructor(private db: AngularFireDatabase) {
+    router;
+    constructor(private db: AngularFireDatabase, private r: Router) {
+        this.flag = 0;
+        this.router = r;
         this.email = sessionStorage.getItem('SessionEmail');
         this.key = sessionStorage.getItem('SessionKEy');
         console.log(this.email + '   ' + this.key);
-        this.recruiter = {nome: '', email: '', telefono: '', password: ''};
+        this.recruiter = {nome: '', email: '', telefono: '', password: '', nuovapassword: ''};
 
         this.database = this.db.list('/account/recruiter/');
         this.database.valueChanges().forEach(el => {
             el.forEach(element => {
                 if (element.email === this.email ) {
                     this.recruiter = {nome: element.fullname, email: this.email, telefono: element.telefono ,
-                        password: ''};
+                        password: '', nuovapassword: ''};
                 }
 
             });
@@ -40,38 +44,38 @@ export class ProfileComponent implements OnInit {
 
     ngOnInit() {
     }
-    onControllPassword(password) {
-        if (password.length === 0 ) {
-            console.log('campo vuoto');
+
+    onControllPassword() {
+        if (this.recruiter.telefono.length < 1) {
+            console.log('Telefono non valido');
+            return;
         }
-        this.flag = false;
+        this.database.update(this.key, {telefono: this.recruiter.telefono});
+        if (this.recruiter.password.length === 0 && this.recruiter.nuovapassword.length === 0) {
+            this.router.navigateByUrl('/dashboard');
+        }
 
-        this.i = 0;
-        /*console.log(this.key);*/
-        const criptPassword = Md5.init(password);
-        this.database = this.db.list('/account/recruiter/');
-        this.database.valueChanges().forEach(el => {
-            el.forEach(element => {
-                if (element.email === this.email  && criptPassword === element.password ) {
-                    console.log(criptPassword );
-                    this.i++;
-                } else {
-                    this.flag = true;
-                }
+        if (this.recruiter.password.length !== 0 && this.recruiter.nuovapassword.length !== 0) {
 
+            this.flag = 0;
+            const criptPassword = Md5.init(this.recruiter.password);
+            this.db.list('/account/recruiter').snapshotChanges().map(actions => {
+                return actions.map(action => ({key: action.key, ...action.payload.val()}));
+            }).subscribe(items => {
+                items.forEach(it => {
+                    if (it.email === this.email && criptPassword === it.password) {
+                        if (this.recruiter.nuovapassword.length !== 0) {
+                            this.database.update(this.key, {password: Md5.init(this.recruiter.nuovapassword)});
+                            console.log('Password aggiornata');
+                            this.router.navigateByUrl('/dashboard');
+                        }
+                    }
+                });
             });
-            if (this.flag === true && this.i === 0) {
-                console.log('la password inserita non è corretta');
-            } else {
-                this.criptPassword2 = Md5.init(this.recruiter.password);
-                this.onChangedate(this.criptPassword2);
-            }
+                console.log('Impossibile aggiornare la password');
+                return;
+        }
 
-        });
-    }
-    onChangedate(password) {
-        this.database.update(this.key, { telefono: this.recruiter.telefono, password: password});
-        console.log({fullname: this.recruiter.nome, email: this.email,  telefono: this.recruiter.telefono, password: password});
     }
 
 }
