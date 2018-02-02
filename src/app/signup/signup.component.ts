@@ -1,7 +1,8 @@
 import { Component, OnInit, Input} from '@angular/core';
 import { routerTransition } from '../router.animations';
+import {Router} from '@angular/router';
+import {Recruiter} from '../layout/profile/recruiter';
 import { AngularFireModule } from 'angularfire2';
-
 
 /*Componenti Firebase*/
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
@@ -20,23 +21,45 @@ import { Md5 } from '../../../node_modules/md5-typescript/Md5';
 })
 export class SignupComponent implements OnInit {
     database;
-    constructor(private db: AngularFireDatabase) {
+    error;
+    recruiter: Recruiter;
+    constructor(private db: AngularFireDatabase, private router: Router) {
+        this.recruiter = {nome: '', email: '', telefono: '', password: '', nuovapassword: ''};
         this.database = this.db.list('/account/recruiter');
     }
 
     ngOnInit() {}
 
-    onSignup(fullname: string, email: string, password: string, repeatpassword: string , telefono: string) {
-        const md5password = Md5.init(password);
+
+    onControlData(repeatpassword: string) {
+        if (this.recruiter.nome === '' || this.recruiter.email === '' ||
+            this.recruiter.password === '' || this.recruiter.telefono === '' || repeatpassword === '' ) {
+            console.log('compilare tutti i campi');
+            this.error = 'compilare tutti i campi';
+            return;
+
+        }  else {
+            this.onSignup(repeatpassword);
+        }
+
+
+    }
+
+    onSignup( repeatpassword: string ) {
+
+        const md5password = Md5.init(this.recruiter.password);
         const md5repeatpassword = Md5.init(repeatpassword);
         if (md5password !== md5repeatpassword ) {
-            alert(' password diverse');
+            this.error = 'password diverse';
+            return;
         }
         console.log(md5password);
-        const saveData = {fullname: fullname, email: email,  password: md5password, telefono: telefono};
+        const saveData = {fullname: this.recruiter.nome,
+            email: this.recruiter.email, telefono: this.recruiter.telefono, password: md5password};
         console.log(saveData);
         this.database.push(saveData);
         console.log('Utente salvato');
+        this.router.navigateByUrl('/login');
 
     }
 }

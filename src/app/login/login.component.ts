@@ -30,6 +30,8 @@ export class LoginComponent implements OnInit {
     constructor(private db: AngularFireDatabase) {
         this.database = this.db.list('/account/recruiter/');
         this.fullname = '';
+        console.log('pulisco le sessioni');
+        sessionStorage.clear();
     }
 
     ngOnInit() {
