@@ -28,9 +28,23 @@ export class ReportComponent implements OnInit {
     ref1 = 1;
     fff;
     ref;
+    dt;
+    day;
+    month;
+    year;
+    data;
+    aggettivo;
+    messaggio;
     constructor(private db: AngularFireDatabase, private f: FirebaseApp) {
         this.fff = f;
         this.database = this.db.list('/candidature/candidature_idonee');
+
+        this.dt = new Date();
+        this.day = this.dt.getDate();
+        this.month = this.dt.getMonth() + 1;
+        this.year = this.dt.getFullYear();
+
+        this.data = this.day + '/' + this.month + '/' + this.year;
         /*
         this.database.update('-L2Uoy3wW3mj9MHFX_Dg', { annuncio : 'ci sono' });
         this.database.set('-L2Uoy3wW3mj9MHFX_Dg', { annuncio : 'modifica l intero oggetto' });
@@ -47,23 +61,32 @@ export class ReportComponent implements OnInit {
         }).subscribe(items => {
             items.forEach( it => {
                 this.ob = new Candidatura();
-                console.log('orarioColloquio: ', it.orario_colloquio, ' luogoColloquio: ', it.luogo_colloquio);
-                this.ob.setIdCandidato(it.id_candidato);
-                this.ob.setIdOfferta(it.id_offerta);
-                this.ob.setDataCandidatura(it.data);
-                this.ob.setKeyCandidatura(it.key);
-                this.ob.setNumber(this.ref1);
-                this.ob.setOrarioColloquio(it.orario_colloquio);
-                this.ob.setLuogoColloquio(it.luogo_colloquio);
-                this.ob.setLinkGoogleMaps(it.google_maps);
-                this.searchIdOfferta(it.id_offerta);
-                this.searchIdCandidato(it.id_candidato);
+                if (it.data_colloquio === this.data) {
+                    console.log('orarioColloquio: ', it.orario_colloquio, ' luogoColloquio: ', it.luogo_colloquio);
+                    this.ob.setIdCandidato(it.id_candidato);
+                    this.ob.setIdOfferta(it.id_offerta);
+                    this.ob.setDataCandidatura(it.data);
+                    this.ob.setKeyCandidatura(it.key);
+                    this.ob.setNumber(this.ref1);
+                    this.ob.setOrarioColloquio(it.orario_colloquio);
+                    this.ob.setLuogoColloquio(it.luogo_colloquio);
+                    this.ob.setLinkGoogleMaps(it.google_maps);
+                    this.searchIdOfferta(it.id_offerta);
+                    this.searchIdCandidato(it.id_candidato);
 
-                this.candidatilist.push(this.ob);
+                    this.candidatilist.push(this.ob);
 
-                this.ref1++;
+                    this.ref1++;
+                }
+
             });
         });
+
+
+        if (this.ref1 === 1) {
+            this.aggettivo = 'Congratulazione!';
+            this.messaggio = 'Nessun colloquio in programma in questa giornata.';
+        }
         /*
         this.database.valueChanges().forEach(el => {
             el.forEach(element => {

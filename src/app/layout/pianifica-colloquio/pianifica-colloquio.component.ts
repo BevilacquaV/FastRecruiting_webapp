@@ -29,7 +29,11 @@ export class PianificaColloquioComponent implements OnInit {
     ref1 = 1;
     fff;
     ref;
+    aggettivo;
+    messaggio;
     constructor(private db: AngularFireDatabase, private f: FirebaseApp) {
+        this.messaggio = '';
+        this.aggettivo = '';
         this.fff = f;
         this.database = this.db.list('/candidature/candidature_idonee');
         /*
@@ -47,20 +51,27 @@ export class PianificaColloquioComponent implements OnInit {
             return actions.map(action => ({ key: action.key, ...action.payload.val() }));
         }).subscribe(items => {
             items.forEach( it => {
-                this.ob = new Candidatura();
-                this.ob.setIdCandidato(it.id_candidato);
-                this.ob.setIdOfferta(it.id_offerta);
-                this.ob.setDataCandidatura(it.data);
-                this.ob.setKeyCandidatura(it.key);
-                this.ob.setNumber(this.ref1);
+                if (it.data_colloquio === '') {
+                    this.ob = new Candidatura();
+                    this.ob.setIdCandidato(it.id_candidato);
+                    this.ob.setIdOfferta(it.id_offerta);
+                    this.ob.setDataCandidatura(it.data);
+                    this.ob.setKeyCandidatura(it.key);
+                    this.ob.setNumber(this.ref1);
 
-                this.searchIdOfferta(it.id_offerta);
-                this.searchIdCandidato(it.id_candidato);
-                this.candidatilist.push(this.ob);
+                    this.searchIdOfferta(it.id_offerta);
+                    this.searchIdCandidato(it.id_candidato);
+                    this.candidatilist.push(this.ob);
 
-                this.ref1++;
+                    this.ref1++;
+                }
             });
         });
+
+        if (this.ref1 === 1) {
+            this.aggettivo = 'Congratulazione!';
+            this.messaggio = 'Hai pianificato tutti i colloqui.';
+        }
         /*
         this.database.valueChanges().forEach(el => {
             el.forEach(element => {

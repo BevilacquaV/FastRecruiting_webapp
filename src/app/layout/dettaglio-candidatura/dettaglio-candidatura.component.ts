@@ -32,24 +32,56 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
     ref;
     public name;
     public candidatilist: Array<any> = [];
-    fullname;
-    ref1;
     who_candidatura: String;
     public figli;
     public dettaglioCandidatura: Candidatura;
     tf;
+    stile;
+    vis;
+    aggettivo;
+    messaggio;
     constructor(private db: AngularFireDatabase, private route: ActivatedRoute, private fff: FirebaseApp, private router: Router) {
-
+        /*
+        this.dis = 'disabled';
+        this.vis = 'true';
+        */
         this.sub = this.route.params.subscribe(params => {
             this.key = params['key'];
             this.who_candidatura = params['candidatura'];
             console.log('key: ', params['key'], ' page_id: ', this.who_candidatura);
         });
 
-        this.ref1 = 1;
-        this.name = '';
+        if (this.who_candidatura === 'candidature_idonee') {
+            this.stile = 'alert alert-success';
+            this.aggettivo = 'Perfetto!';
+            this.messaggio = 'Stai visualizzando una candidatura IDONEA. ';
 
+        }
+        if (this.who_candidatura === 'candidature_non_idonee') {
+            this.stile = 'alert alert-danger';
+            this.aggettivo = 'Attenzione!';
+            this.messaggio = 'Stai visualizzando una candidatura NON IDONEA. ';
+        }
 
+        if (this.who_candidatura === 'candidature_da_verificare') {
+            this.stile = 'alert alert-warning';
+            this.aggettivo = 'Attenzione!';
+            this.messaggio = 'Stai visualizzando una candidatura che ha richiesto assistenza tecnica. ';
+        }
+
+        if (this.who_candidatura === 'candidature_da_analizzares') {
+            this.stile = 'alert alert-info';
+            this.aggettivo = 'Perfetto!';
+            this.messaggio = 'Ora puoi analizzare la candidatura. ';
+        }
+
+        /*
+        this.dis = 'disabled';
+
+        this.vis = 'false';
+        */
+
+        this.ob = new Candidatura();
 /*
          this.database = this.db.list('/candidature/' + this.who_candidatura);
         this.database.update('-L2Uoy3wW3mj9MHFX_Dg', { annuncio : 'ci sono' });
@@ -70,14 +102,88 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
         this.ref = fff.database().ref('/candidature/' + this.who_candidatura + '/' + this.key);
         this.ref.once('value', snapshot => {
             snapshot.forEach( value => {
+
                 console.log('value: ', value.val(), ' ---- key: ', value.key);
                 if (value.key === 'titolodistudio') {
-                    /* this.ob.titolodistudio = value.val(); */
-                    this.fullname = value.val();
+                    this.ob.setTitoloDiStudio(value.val());
+                }
+
+                if (value.key === 'cv') {
+                    this.ob.setPathCV(value.val());
+                }
+
+                if (value.key === 'data') {
+                    this.ob.setDataCandidatura(value.val());
+                }
+
+                if (value.key === 'data_colloquio') {
+                    this.ob.setDataColloquio(value.val());
+                }
+
+                if (value.key === 'google_maps') {
+                    this.ob.setLinkGoogleMaps(value.val());
+                }
+
+                if (value.key === 'id_candidato') {
+                    this.ob.setIdCandidato(value.val());
+                    /*
+                    Cosi mi setto il fullname del candidato
+                     */
+                    this.searchIdCandidato(value.val());
+                }
+
+                if (value.key === 'id_offerta') {
+                    this.ob.setIdOfferta(value.val());
+                    /*
+                    Così mi setto il nome dell'offerta
+                     */
+                    this.searchIdOfferta(value.val());
+                }
+
+                if (value.key === 'id_tecnico') {
+                    this.ob.setIdTecnico(value.val());
+                }
+
+                if (value.key === 'lett_present') {
+                    this.ob.setPathLettPresent(value.val());
+                }
+
+                if (value.key === 'luogo_colloquio') {
+                    this.ob.setLuogoColloquio(value.val());
+                }
+
+                if (value.key === 'note') {
+                    this.ob.setNoteCandidato(value.val());
+                }
+
+                if (value.key === 'note_recruiter') {
+                    this.ob.setNoteRecruiter(value.val());
+                }
+
+                if (value.key === 'note_tecnico') {
+                    this.ob.setNoteTecnico(value.val());
+                }
+
+                if (value.key === 'orario_colloquio') {
+                    this.ob.setOrarioColloquio(value.val());
+                }
+
+                if (value.key === 'skill') {
+                    this.ob.setSkillCandidato(value.val());
                 }
 
             });
         });
+
+        if (this.who_candidatura === 'candidature_idonee') {
+            if (this.ob.dataColloquio === '') {
+                this.vis = true;
+            } else {
+                this.vis = false;
+            }
+        } else {
+            this.vis = false;
+        }
             /*
         })
             .then(function(snapshot) {
@@ -119,6 +225,63 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
                 */
 
 
+    }
+
+    public searchIdOfferta(id: String) {
+
+
+        this.ref = this.fff.database().ref('/offertedilavoro/' + id);
+        this.ref.once('value', snapshot => {
+            snapshot.forEach( value => {
+                if (value.key === 'titolo') {
+                    /* this.ob.titolodistudio = value.val(); */
+                    console.log('name offerta: ', value.val());
+                    this.ob.setNameOfferta(value.val());
+                }
+
+            });
+        });
+
+        /*
+        this.database = this.db.list('/offertedilavoro');
+        this.db.list('/offertedilavoro').snapshotChanges().map(actions => {
+            return actions.map(action => ({ key: action.key, ...action.payload.val() }));
+        }).subscribe(items => {
+            items.forEach( it => {
+                if (id !== it.key) {
+                } else {
+                    this.ob.offerta = it.titolo;
+                }
+            });
+        });*/
+    }
+
+    public searchIdCandidato(id: String) {
+
+        this.ref = this.fff.database().ref('/account/candidati/' + id);
+        this.ref.once('value', snapshot => {
+            snapshot.forEach( value => {
+                if (value.key === 'fullname') {
+                    /* this.ob.titolodistudio = value.val(); */
+                    console.log('Fullname candidato: ', value.val());
+                    this.ob.setFullname(value.val());
+                }
+
+            });
+        });
+        /*
+        this.database = this.db.list('/account/candidati');
+        this.db.list('/account/candidati').snapshotChanges().map(actions => {
+            return actions.map(action => ({ key: action.key, ...action.payload.val() }));
+        }).subscribe(items => {
+            items.forEach( it => {
+                if (id !== it.key) {
+                } else {
+                    this.ob.fullname = it.fullname;
+                }
+            });
+        });
+        */
     }
 
     ngOnInit() {

@@ -29,6 +29,7 @@ export class CandidatiIdoneiComponent implements OnInit {
     ref1 = 1;
     fff;
     ref;
+    obj;
     constructor(private db: AngularFireDatabase, private f: FirebaseApp) {
         this.fff = f;
         this.database = this.db.list('/candidature/candidature_idonee');
@@ -60,6 +61,8 @@ export class CandidatiIdoneiComponent implements OnInit {
                     this.candidatilist.push(this.ob);
 
                     this.ref1++;
+
+                    console.log(' Oggetto candidato: ', this.ob);
             });
         });
 

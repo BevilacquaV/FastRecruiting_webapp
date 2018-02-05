@@ -32,8 +32,8 @@
   <app-page-header [heading]="'Dettaglio Candidatura'" [icon]="'fa-edit'"></app-page-header>
 
 <div style="text-align: center;">
-  <div class="alert alert-success">
-    <strong>Perfetto!</strong> Questa candidatura risulta IDONEA. {{fullname}}
+  <div class="{{stile}}">
+    <strong> {{aggettivo}}</strong> {{messaggio}}
   </div>
 </div>
 <div class="row">
@@ -42,44 +42,44 @@
       <form role="form">
         <fieldset class="form-group">
           <label style="font-weight: bold; color:#000">Fullname</label>
-          <p class="help-block">Antonio {{ref1}}</p>
+          <p class="help-block">{{ob.fullname}}</p>
         </fieldset>
         <hr/>
           <!-- <p class="help-block">Qui stampa il fullname.</p> -->
         <fieldset class="form-group">
           <label style="font-weight: bold; color:#000">Titolo di studio</label>
-          <p class="help-block">Laurea Triennale .. </p>
+          <p class="help-block">{{ob.titolodistudio}}</p>
         </fieldset>
         <hr/>
           <!-- <input class="form-control" placeholder="Enter text"> -->
 
         <fieldset class="form-group">
           <label style="font-weight: bold; color:#000">Skill</label>
-          <p class="help-block">Java; C; HTML </p>
+          <p class="help-block">{{ob.skillCandidato}} </p>
         </fieldset>
         <hr/>
 
         <fieldset class="form-group">
           <label style="font-weight: bold; color:#000">Titolo di studio</label>
-          <p class="help-block">Laurea Triennale .. </p>
+          <p class="help-block">{{ob.titolodistudio}} </p>
         </fieldset>
         <hr/>
 
         <fieldset class="form-group">
           <label style="font-weight: bold; color:#000">Note</label>
-          <p class="help-block">Qui le note del candidato </p>
+          <p class="help-block">{{ob.noteCandidato}}</p>
         </fieldset>
         <hr/>
 
         <fieldset class="form-group">
           <label style="font-weight: bold; color:#000">Curriculum Vitae</label>
-          <p class="help-block"><a target="_blank" href="http://v4-alpha.getbootstrap.com/components/forms/">clicca qui..</a> </p>
+          <p class="help-block"><a target="_blank" href="{{ob.pathCV}}">clicca qui..</a> </p>
         </fieldset>
         <hr/>
 
         <fieldset class="form-group">
           <label style="font-weight: bold; color:#000">Lettera di presentazione</label>
-          <p class="help-block"><a target="_blank" href="http://v4-alpha.getbootstrap.com/components/forms/">clicca qui..</a> </p>
+          <p class="help-block"><a target="_blank" href="{{ob.pathLettPresent}}">clicca qui..</a> </p>
         </fieldset>
         <hr/>
 
@@ -93,38 +93,42 @@
 
         <fieldset class="form-group">
         <label style="font-weight: bold; color:#000">Offerta di lavoro</label>
-        <p class="help-block">Qui l'offerta di lavoro </p>
+        <p class="help-block">{{ob.offerta}}</p>
       </fieldset>
         <hr/>
 
         <fieldset class="form-group">
           <label style="font-weight: bold; color:#000">Colloquio in data</label>
-          <p class="help-block"> 12/12/2018 16:00</p>
+          <p class="help-block"> {{ob.dataColloquio}} - {{ob.orarioColloquio}}</p>
         </fieldset>
         <hr/>
 
         <fieldset class="form-group">
           <label style="font-weight: bold; color:#000">Luogo colloquio</label>
-          <p class="help-block"> Salerno <a target="_blank" href="http://v4-alpha.getbootstrap.com/components/forms/">Google Maps</a></p>
+          <p class="help-block"> {{ob.luogoColloquio}} <a target="_blank" href="{{ob.linkGoogleMaps}}">Google Maps</a></p>
         </fieldset>
         <hr/>
 
         <fieldset class="form-group">
           <label style="font-weight: bold; color:#000">Note recruiter</label>
-          <p class="help-block"> Qui le note del recruiter</p>
+          <p class="help-block"> {{ob.noteRecruiter}}</p>
         </fieldset>
         <hr/>
 
         <fieldset class="form-group">
           <label style="font-weight: bold; color:#000">Note assist. tecnico</label>
-          <p class="help-block"> Qui le note del assist. tecnico</p>
+          <p class="help-block"> {{ob.noteTecnico}}</p>
         </fieldset>
         <hr/>
-        <div style="text-align: center;">
-        <button type="button" class="btn btn-success" name="buttonpianifica" #buttonpianifica>Pianifica colloquio</button>
+        <div style="text-align: center;"  >
+       <!-- <button type="button" class="btn btn-success" name="buttonpianifica" #buttonpianifica>Pianifica colloquio</button>
+        -->
+          <button *ngIf="vis" class="btn btn-success" name="buttonpianifica" #buttonpianifica> Pianifica colloquio</button>
+
         </div>
                </form>
 
 
     </div>
   <!-- /.row -->
+</div>
