@@ -1,22 +1,25 @@
-<app-page-header [heading]="'Visualizza Candidati'" [icon]="'fa fa-user'"></app-page-header>
+<app-page-header [heading]="'visualizza Candidati'" [icon]="'fa fa-user'"></app-page-header>
 <div class="card mb-3">
-  <div class="card-header" align="center" >Visualizza Candidati</div>
-  <table class="card-body table">
+  <div class="card-header">Di seguito l'elenco di tutti i <b>candidati</b></div>
+  <table class="card-body table table-hover">
     <thead>
     <tr>
-
-      <th ><i class="fa fa-user" ></i> Nome Candidato</th>
-      <th>  <span class="fa fa-calendar"></span> Data Candidatura</th>
-      <!--  <th>Username</th>-->
+      <th>#</th>
+      <th>Fullname</th>
+      <th>Offerta Di Lavoro</th>
+      <th>Data</th>
     </tr>
     </thead>
-    <tbody *ngFor="let candidate of candidateslist" class="alert alert-success">
-    <tr class="table-success">
-      <td>{{candidate.fullname}}<tr>
-        {{candidate.id_offerta}}</tr></td>
-    <td>{{candidate.data}}</td>
-    <td><button type="button" class="btn btn-primary"  [routerLink]="['/candidate',candidate.fullname]" [routerLinkActive]="['router-link-active']">Visualizza</button></td>
+    <tbody *ngFor="let candidati of candidatilist">
+
+    <tr>
+      <th scope="row">{{candidati.number}}</th>
+      <td><a [routerLink]="['/dettaglio-candidatura', candidati.key_candidatura, 'candidature_da_analizzare']" [routerLinkActive]="['router-link-active']">
+        {{candidati.fullname}}</a></td>
+      <td>{{candidati.offerta}}</td>
+      <td>{{candidati.dataCandidatura}}</td>
     </tr>
     </tbody>
   </table>
 </div>
+

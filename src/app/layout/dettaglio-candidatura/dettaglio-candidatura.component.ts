@@ -13,6 +13,8 @@ import { Md5 } from '../../../../node_modules/md5-typescript/Md5';
 import { AngularFireModule } from 'angularfire2';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {DatabaseReference} from 'angularfire2/database';
+import {Valutazione} from './valutazione';
+import {Tecnico} from './tecnico';
 
 @Component({
   selector: 'app-dettaglio-candidatura',
@@ -40,11 +42,62 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
     vis;
     aggettivo;
     messaggio;
+    public valuta: Valutazione ;
+    tecnico;
+    keytecnico;
+    nomeTecnico= '';
+    vistaIdoneo;
+    vistaNonIdoneo;
+    vistaTecnico;
+    scelgoTecnico;
+    public tecnicotilist: Array<any> = [];
+    databaseAttenzione;
+    /*
+
+    private sub: any;
+    database;
+
+    tecnico;
+    keytecnico;
+    nomeTecnico= '';
+    vistaIdoneo;
+    vistaNonIdoneo;
+    vistaTecnico;
+    scelgoTecnico;
+    log: string;
+    d;
+    key;
+    ob: Candidatura;
+    ref;
+    public name;
+    public candidatilist: Array<any> = [];
+    public tecnicotilist: Array<any> = [];
+   candidatura: Candidatura;
+    fullname;
+    ref1;
+    who_candidatura: String;
+    cv;
+    data;
+    data_colloquio;
+    google_maps;
+    id_candidato;
+    id_offerta;
+    id_tecnico;
+    let_present;
+    luogo_colloquio;
+    note;
+    note_recruiter;
+    note_tecnico;
+    orario_colloquio;
+    skill;
+    titolodistudio;
+     */
     constructor(private db: AngularFireDatabase, private route: ActivatedRoute, private fff: FirebaseApp, private router: Router) {
         /*
         this.dis = 'disabled';
         this.vis = 'true';
         */
+        this.valuta = {valore: 'Idoneo'};
         this.sub = this.route.params.subscribe(params => {
             this.key = params['key'];
             this.who_candidatura = params['candidatura'];
@@ -224,7 +277,144 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
                 this.router.navigateByUrl('./dashboard/');
                 */
 
+        /* carica il responsabile tecnico nella selecet  */
+        this.db.list('/account/tecnico/').snapshotChanges().map(actions => {
+            return actions.map(action => ({key: action.key, ...action.payload.val()}));
+        }).subscribe(items => {
+            items.forEach(it => {
+                this.tecnico = new Tecnico('', '', '', '');
+                this.tecnico.fullname = it.fullname;
+                this.nomeTecnico = it.fullname;
+                this.tecnicotilist.push(this.tecnico);
 
+            });
+        });
+
+    }
+
+
+
+    /*  metodo per visualizzare i bottoni e le select*/
+    onVisualizza() {
+
+        this.onIdoneo();
+        this.onNonIdoneo();
+        this.onVisualizzaTecnico();
+    }
+
+
+    onIdoneo() {
+        if (this.valuta.valore === 'Idoneo' ) {
+            this.vistaIdoneo = true;
+            this.vistaNonIdoneo = false;
+            this.vistaTecnico = false;
+            this.scelgoTecnico = false;
+        } else {
+            this.vistaIdoneo = false;
+        }
+    }
+
+    onNonIdoneo() {
+        if (this.valuta.valore === 'Non Idoneo' ) {
+            this.vistaNonIdoneo = true;
+            this.vistaIdoneo = false;
+            this.vistaTecnico = false;
+            this.scelgoTecnico = false;
+        } else {
+            this.vistaNonIdoneo = false;
+
+        }
+    }
+
+    onVisualizzaTecnico() {
+        if (this.valuta.valore === 'Richiedi attenzione' ) {
+            this.vistaNonIdoneo = false;
+            this.vistaTecnico = true;
+            this.vistaIdoneo = false;
+            this.scelgoTecnico = false;
+
+        } else {
+            this.vistaTecnico = false;
+
+        }
+    }
+
+
+    onScelgoTecnico() {
+        this.scelgoTecnico = true;
+        console.log(this.nomeTecnico);
+    }
+
+    onStoreIdoneo() {
+        this.database = this.db.list('/candidature/candidature_idonee/');
+        const saveData = {cv: this.ob.pathCV, data: this.ob.dataCandidatura, data_colloquio: this.ob.dataColloquio,
+            google_maps: this.ob.linkGoogleMaps, id_candidato: this.ob.idCandidato, id_offerta: this.ob.idOfferta,
+            id_tecnico: this.ob.idTecnico, lett_present: this.ob.pathLettPresent, luogo_colloquio: this.ob.luogoColloquio,
+            note: this.ob.noteCandidato, note_recruiter: this.ob.noteRecruiter, note_tecnico: this.ob.noteTecnico,
+            orario_colloquio: this.ob.orarioColloquio, skill: this.ob.skillCandidato, titolodistudio: this.ob.titolodistudio,
+            fullanameCandidato: this.ob.fullname, titoloOfferta: this.ob.offerta};
+        console.log(saveData);
+        this.database.push( saveData );
+
+        this.db.list('/candidature/candidature_da_analizzare').remove('' + this.key);
+        this.router.navigateByUrl('/view-candidates');
+    }
+
+    onStoreNonIdoneo() {
+        this.database = this.db.list('/candidature/candidature_non_idonee/');
+        const saveData = {cv: this.ob.pathCV, data: this.ob.dataCandidatura, data_colloquio: this.ob.dataColloquio,
+            google_maps: this.ob.linkGoogleMaps, id_candidato: this.ob.idCandidato, id_offerta: this.ob.idOfferta,
+            id_tecnico: this.ob.idTecnico, lett_present: this.ob.pathLettPresent, luogo_colloquio: this.ob.luogoColloquio,
+            note: this.ob.noteCandidato, note_recruiter: this.ob.noteRecruiter, note_tecnico: this.ob.noteTecnico,
+            orario_colloquio: this.ob.orarioColloquio, skill: this.ob.skillCandidato, titolodistudio: this.ob.titolodistudio,
+            fullanameCandidato: this.ob.fullname, titoloOfferta: this.ob.offerta};
+        console.log(saveData);
+        this.database.push( saveData );
+
+        this.db.list('/candidature/candidature_da_analizzare').remove('' + this.key);
+        this.router.navigateByUrl('/view-candidates');
+    }
+
+    onStoreRichiediAttenzione() {
+        this.db.list('/account/tecnico').snapshotChanges().map(actions => {
+            return actions.map(action => ({key: action.key, ...action.payload.val()}));
+        }).subscribe(items => {
+            items.forEach(it => {
+                if (it.fullname === this.nomeTecnico) {
+                    console.log('sono dentro ');
+                    this.keytecnico = it.key;
+                    console.log(this.keytecnico);
+                    this.databaseAttenzione = this.db.list('/candidature/candidature_da_verificare');
+                    const saveData = {
+                        cv: this.ob.pathCV,
+                        data: this.ob.dataCandidatura,
+                        data_colloquio: this.ob.dataColloquio,
+                        google_maps: this.ob.linkGoogleMaps,
+                        id_candidato: this.ob.idCandidato,
+                        id_offerta: this.ob.idOfferta,
+                        id_tecnico: this.ob.idTecnico,
+                        lett_present: this.ob.pathLettPresent,
+                        luogo_colloquio: this.ob.luogoColloquio,
+                        note: this.ob.noteCandidato,
+                        note_recruiter: this.ob.noteRecruiter,
+                        note_tecnico: this.ob.noteTecnico,
+                        orario_colloquio: this.ob.orarioColloquio,
+                        skill: this.ob.skillCandidato,
+                        titolodistudio: this.ob.titolodistudio,
+                        fullanameCandidato: this.ob.fullname,
+                        titoloOfferta: this.ob.offerta
+                    };
+                    console.log(saveData);
+
+                    console.log(saveData);
+                    this.databaseAttenzione.push(saveData);
+                    this.db.list('/candidature/candidature_da_analizzare').remove('' + this.key);
+                    this.router.navigateByUrl('/view-candidates');
+
+                }
+
+            });
+        });
     }
 
     public searchIdOfferta(id: String) {
@@ -291,3 +481,11 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
         this.sub.unsubscribe();
     }
 }
+
+
+
+
+
+
+
+

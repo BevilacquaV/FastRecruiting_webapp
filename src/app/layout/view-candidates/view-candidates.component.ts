@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
-import {Candiatas} from './candidates';
-import {Joboffer} from '../dashboard/joboffer';
+import {Candidatura} from '../candidati-idonei/candidatura';
+import {FirebaseApp} from 'angularfire2';
 
 @Component({
     selector: 'app-view-candidates',
@@ -11,44 +11,77 @@ import {Joboffer} from '../dashboard/joboffer';
     styleUrls: ['./view-candidates.component.scss']
 })
 export class ViewCandidatesComponent implements OnInit {
+
+    public alerts: Array<any> = [];
+    fullname: string;
     database;
-    public candidate;
-    offerta: string;
-    public candidateslist: Array<any> = [];
-    public jobsofferlist: Array<any> = [];
-    public offer;
-    constructor(private db: AngularFireDatabase) {
-        this.database = this.db.list('/candidature/');
+    public candidatilist: Array<any> = [];
+    ob;
+    items;
+    value;
+    ref1 = 1;
+    fff;
+    ref;
 
+    constructor(private db: AngularFireDatabase, private f: FirebaseApp) {
+        this.fff = f;
 
+        this.db.list('/candidature/candidature_da_analizzare/').snapshotChanges().map(actions => {
+            return actions.map(action => ({ key: action.key, ...action.payload.val() }));
+        }).subscribe(items => {
+            items.forEach( it => {
+                this.ob = new Candidatura();
+                this.ob.setIdCandidato(it.id_candidato);
+                this.ob.setIdOfferta(it.id_offerta);
+                this.ob.setDataCandidatura(it.data);
+                this.ob.setKeyCandidatura(it.key);
+                this.ob.setNumber(this.ref1);
 
-        this.database.valueChanges().forEach(el => {
-            el.forEach(element => {
-                this.candidate = new Candiatas(element.email, element.fullname, element.titolodistudi, element.note,
-                    element.skill, element.telefono, element.data, element.cv,
-                    element.id_candidato, element.id_offerta, element.let_presentazione, element.stato, );
-                this.offerta = element.id_offerta;
-                this.candidateslist.push(this.candidate);
+                this.searchIdOfferta(it.id_offerta);
+                this.searchIdCandidato(it.id_candidato);
+                this.candidatilist.push(this.ob);
 
+                this.ref1++;
             });
-console.log(this.offerta);
         });
-        this.database = this.db.list('/offertedilavoro/');
 
-        this.database.valueChanges().forEach(el => {
-            el.forEach(element => {
-                this.offer = new Joboffer(element.titolo, element.luogodilavoro, element.skill, element.annuncio,
-                    element.titolodistudio, 'dadsa');
-                this.jobsofferlist.push(this.offer);
-            });
-        });
-        console.log(this.offer);
     }
 
 
-
-
-        ngOnInit() {
+    ngOnInit() {
     }
 
+
+    public searchIdOfferta(id: String) {
+        this.ref = this.fff.database().ref('/offertedilavoro/' + id);
+        this.ref.once('value', snapshot => {
+            snapshot.forEach(value => {
+                if (value.key === 'titolo') {
+                    console.log('name offerta: ', value.val());
+                    this.ob.setNameOfferta(value.val());
+
+                }
+
+            });
+        });
+    }
+
+
+    public searchIdCandidato(id: String) {
+
+        this.ref = this.fff.database().ref('/account/candidati/' + id);
+        this.ref.once('value', snapshot => {
+            snapshot.forEach(value => {
+                if (value.key === 'fullname') {
+                    console.log('Fullname candidato: ', value.val());
+                    this.ob.setFullname(value.val());
+
+                }
+
+            });
+        });
+    }
 }
+
+
+

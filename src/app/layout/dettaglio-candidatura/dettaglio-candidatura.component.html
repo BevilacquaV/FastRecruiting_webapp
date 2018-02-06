@@ -126,7 +126,33 @@
           <button *ngIf="vis" class="btn btn-success" name="buttonpianifica" #buttonpianifica> Pianifica colloquio</button>
 
         </div>
-               </form>
+
+
+        <div class="form-group">
+          <label>Seleziona Valutazione</label>
+          <select  [(ngModel)]="valuta.valore"  class="form-control" name="select"  (click)="onVisualizza()">
+            <option value="Idoneo" >Idoneo</option>
+            <option value="Non Idoneo">Non Idoneo</option>
+            <option value="Richiedi attenzione">Richiedi attenzione</option>
+          </select>
+        </div>
+        <label *ngIf="vistaTecnico">Seleziona Tecnico</label>
+        <select  [(ngModel)]="nomeTecnico"  *ngIf="vistaTecnico" class="form-control" name="select" (click) = "onScelgoTecnico()">
+          <option *ngFor="let list of tecnicotilist">{{ list.fullname }}</option>
+
+        </select>
+
+        <div style="text-align: left;">
+          <button  *ngIf="vistaIdoneo"type="button" class="btn btn-success" (click)="onStoreIdoneo()" >valuta</button>
+        </div>
+        <div style="text-align: left;">
+          <button *ngIf="vistaNonIdoneo" type="button" class="btn btn-danger"  (click)="onStoreNonIdoneo()" >valuta</button>
+        </div>
+        <div style="text-align: left;  margin-top: 20px;">
+          <button   *ngIf="scelgoTecnico" type="button" class="btn btn-primary"  (click)="onStoreRichiediAttenzione()">conferma</button>
+        </div>
+
+      </form>
 
 
     </div>
