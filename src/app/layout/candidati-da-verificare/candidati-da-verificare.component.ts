@@ -53,8 +53,12 @@ export class CandidatiDaVerificareComponent implements OnInit {
                 this.ob.setKeyCandidatura(it.key);
                 this.ob.setNumber(this.ref1);
 
+                this.ob.setFullname(it.fullnameCandidato);
+                this.ob.setNameOfferta(it.titoloOfferta);
+/*
                 this.searchIdOfferta(it.id_offerta);
                 this.searchIdCandidato(it.id_candidato);
+                */
                 this.candidatilist.push(this.ob);
 
                 this.ref1++;

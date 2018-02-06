@@ -10,6 +10,7 @@ import {FirebaseApp} from 'angularfire2';
 
 import { Md5 } from '../../../../node_modules/md5-typescript/Md5';
 import { AngularFireModule } from 'angularfire2';
+import set = Reflect.set;
 
 @Component({
   selector: 'app-candidati-idonei',
@@ -22,7 +23,7 @@ export class CandidatiIdoneiComponent implements OnInit {
     public sliders: Array<any> = [];
     fullname: String;
     database;
-    public candidatilist: Array<any> = [];
+    public candidatilist: Array<Candidatura> = [];
     ob: Candidatura;
     items;
     value;
@@ -30,9 +31,11 @@ export class CandidatiIdoneiComponent implements OnInit {
     fff;
     ref;
     obj;
+    i;
+    s;
     constructor(private db: AngularFireDatabase, private f: FirebaseApp) {
+        this.i = 0;
         this.fff = f;
-        this.database = this.db.list('/candidature/candidature_idonee');
         /*
         this.database.update('-L2Uoy3wW3mj9MHFX_Dg', { annuncio : 'ci sono' });
         this.database.set('-L2Uoy3wW3mj9MHFX_Dg', { annuncio : 'modifica l intero oggetto' });
@@ -46,23 +49,31 @@ export class CandidatiIdoneiComponent implements OnInit {
         */
 
         this.db.list('/candidature/candidature_idonee').snapshotChanges().map(actions => {
-            return actions.map(action => ({ key: action.key, ...action.payload.val() }));
+            return actions.map(action => ({key: action.key, ...action.payload.val()}));
         }).subscribe(items => {
-            items.forEach( it => {
-                    this.ob = new Candidatura();
-                    this.ob.setIdCandidato(it.id_candidato);
-                    this.ob.setIdOfferta(it.id_offerta);
-                    this.ob.setDataCandidatura(it.data);
-                    this.ob.setKeyCandidatura(it.key);
-                    this.ob.setNumber(this.ref1);
+            items.forEach(it => {
 
-                    this.searchIdOfferta(it.id_offerta);
-                    this.searchIdCandidato(it.id_candidato);
-                    this.candidatilist.push(this.ob);
+                this.ob = new Candidatura();
 
-                    this.ref1++;
+                this.ob.setIdCandidato(it.id_candidato);
+                this.ob.setIdOfferta(it.id_offerta);
+                this.ob.setDataCandidatura(it.data);
+                this.ob.setKeyCandidatura(it.key);
+                this.ob.setNumber(this.ref1);
+                this.ob.setFullname(it.fullnameCandidato);
+                this.ob.setNameOfferta(it.titoloOfferta);
 
-                    console.log(' Oggetto candidato: ', this.ob);
+                this.ref1++;
+
+                /*
+                this.searchOfferta(it.id_offerta);
+                this.searchIdCandidato(it.id_candidato);
+                */
+                console.log('stefano: ', this.ob );
+                /*setTimeout(this.search(it.id_offerta, it.id_candidato), 50000);
+*/
+
+                this.candidatilist.push(this.ob);
             });
         });
 
@@ -111,62 +122,34 @@ export class CandidatiIdoneiComponent implements OnInit {
         );
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+    }
 
-    public searchIdOfferta(id: String) {
+    public searchOfferta(id_Offerta: String) {
 
-
-        this.ref = this.fff.database().ref('/offertedilavoro/' + id);
+        this.ref = this.fff.database().ref('/offertedilavoro/' + id_Offerta);
         this.ref.once('value', snapshot => {
-            snapshot.forEach( value => {
+            snapshot.forEach(value => {
                 if (value.key === 'titolo') {
                     /* this.ob.titolodistudio = value.val(); */
-                    console.log('name offerta: ', value.val());
                     this.ob.setNameOfferta(value.val());
-                   }
+                }
 
             });
         });
-
-        /*
-        this.database = this.db.list('/offertedilavoro');
-        this.db.list('/offertedilavoro').snapshotChanges().map(actions => {
-            return actions.map(action => ({ key: action.key, ...action.payload.val() }));
-        }).subscribe(items => {
-            items.forEach( it => {
-                if (id !== it.key) {
-                } else {
-                    this.ob.offerta = it.titolo;
-                }
-            });
-        });*/
     }
 
     public searchIdCandidato(id: String) {
 
         this.ref = this.fff.database().ref('/account/candidati/' + id);
         this.ref.once('value', snapshot => {
-            snapshot.forEach( value => {
+            snapshot.forEach(value => {
                 if (value.key === 'fullname') {
                     /* this.ob.titolodistudio = value.val(); */
-                    console.log('Fullname candidato: ', value.val());
                     this.ob.setFullname(value.val());
                 }
 
             });
         });
-        /*
-        this.database = this.db.list('/account/candidati');
-        this.db.list('/account/candidati').snapshotChanges().map(actions => {
-            return actions.map(action => ({ key: action.key, ...action.payload.val() }));
-        }).subscribe(items => {
-            items.forEach( it => {
-                if (id !== it.key) {
-                } else {
-                    this.ob.fullname = it.fullname;
-                }
-            });
-        });
-        */
     }
 }

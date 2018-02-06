@@ -45,6 +45,7 @@ export class ReportComponent implements OnInit {
         this.year = this.dt.getFullYear();
 
         this.data = this.day + '/' + this.month + '/' + this.year;
+        console.log('data del sistema: ', this.data);
         /*
         this.database.update('-L2Uoy3wW3mj9MHFX_Dg', { annuncio : 'ci sono' });
         this.database.set('-L2Uoy3wW3mj9MHFX_Dg', { annuncio : 'modifica l intero oggetto' });
@@ -65,28 +66,33 @@ export class ReportComponent implements OnInit {
                     console.log('orarioColloquio: ', it.orario_colloquio, ' luogoColloquio: ', it.luogo_colloquio);
                     this.ob.setIdCandidato(it.id_candidato);
                     this.ob.setIdOfferta(it.id_offerta);
-                    this.ob.setDataCandidatura(it.data);
+                    this.ob.setDataColloquio(it.data_colloquio);
                     this.ob.setKeyCandidatura(it.key);
                     this.ob.setNumber(this.ref1);
                     this.ob.setOrarioColloquio(it.orario_colloquio);
+
                     this.ob.setLuogoColloquio(it.luogo_colloquio);
                     this.ob.setLinkGoogleMaps(it.google_maps);
+
+                    this.ob.setFullname(it.fullnameCandidato);
+                    this.ob.setNameOfferta(it.titoloOfferta);
+                    /*
                     this.searchIdOfferta(it.id_offerta);
                     this.searchIdCandidato(it.id_candidato);
+                    */
 
                     this.candidatilist.push(this.ob);
 
                     this.ref1++;
+                } else {
+                        this.aggettivo = 'Congratulazione!';
+                        this.messaggio = 'Nessun colloquio in programma in questa giornata.';
                 }
+
 
             });
         });
 
-
-        if (this.ref1 === 1) {
-            this.aggettivo = 'Congratulazione!';
-            this.messaggio = 'Nessun colloquio in programma in questa giornata.';
-        }
         /*
         this.database.valueChanges().forEach(el => {
             el.forEach(element => {
