@@ -30,8 +30,12 @@ export class CandidatiNonIdoneiComponent implements OnInit {
     ref1 = 1;
     fff;
     ref;
+    messaggio;
+    aggettivo;
     constructor(private db: AngularFireDatabase, private f: FirebaseApp) {
         this.fff = f;
+        this.aggettivo = 'Perfetto!';
+        this.messaggio = 'Nessun candidato Non Idoneo!';
         this.database = this.db.list('/candidature/candidature_non_idonee');
         /*
         this.database.update('-L2Uoy3wW3mj9MHFX_Dg', { annuncio : 'ci sono' });
@@ -63,6 +67,9 @@ export class CandidatiNonIdoneiComponent implements OnInit {
                 this.searchIdCandidato(it.id_candidato);
                 */
                 this.candidatilist.push(this.ob);
+
+                this.aggettivo = '';
+                this.messaggio = '';
 
                 this.ref1++;
             });

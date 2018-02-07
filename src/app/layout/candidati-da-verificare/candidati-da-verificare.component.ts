@@ -28,9 +28,13 @@ export class CandidatiDaVerificareComponent implements OnInit {
     ref1 = 1;
     fff;
     ref;
+    messaggio;
+    aggettivo;
     constructor(private db: AngularFireDatabase, private f: FirebaseApp) {
         this.fff = f;
         this.database = this.db.list('/candidature/candidature_da_verificare');
+        this.aggettivo = 'Perfetto!';
+        this.messaggio = 'Nessun candidato che richiede Assistenza Tecnica!';
         /*
         this.database.update('-L2Uoy3wW3mj9MHFX_Dg', { annuncio : 'ci sono' });
         this.database.set('-L2Uoy3wW3mj9MHFX_Dg', { annuncio : 'modifica l intero oggetto' });
@@ -61,6 +65,8 @@ export class CandidatiDaVerificareComponent implements OnInit {
                 */
                 this.candidatilist.push(this.ob);
 
+                this.messaggio = '';
+                this.aggettivo = '';
                 this.ref1++;
             });
         });

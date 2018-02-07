@@ -1,5 +1,10 @@
-<app-page-header [heading]="'visualizza Candidati'" [icon]="'fa fa-user'"></app-page-header>
+<app-page-header [heading]="'Visualizza Candidati'" [icon]="'fa fa-user'"></app-page-header>
 <div class="card mb-3">
+  <div style="text-align: center;">
+    <div class="alert alert-info">
+      <strong> {{aggettivo}}</strong> {{messaggio}}
+    </div>
+  </div>
   <div class="card-header">Di seguito l'elenco di tutti i <b>candidati</b></div>
   <table class="card-body table table-hover">
     <thead>

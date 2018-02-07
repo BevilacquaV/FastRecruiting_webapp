@@ -33,6 +33,8 @@ export class CandidatiIdoneiComponent implements OnInit {
     obj;
     i;
     s;
+    aggettivo;
+    messaggio;
     constructor(private db: AngularFireDatabase, private f: FirebaseApp) {
         this.i = 0;
         this.fff = f;
@@ -47,6 +49,8 @@ export class CandidatiIdoneiComponent implements OnInit {
         });
 
         */
+        this.aggettivo = 'Perfetto!';
+        this.messaggio = 'Nessun candidato Idoneo!';
 
         this.db.list('/candidature/candidature_idonee').snapshotChanges().map(actions => {
             return actions.map(action => ({key: action.key, ...action.payload.val()}));
@@ -72,6 +76,8 @@ export class CandidatiIdoneiComponent implements OnInit {
                 console.log('stefano: ', this.ob );
                 /*setTimeout(this.search(it.id_offerta, it.id_candidato), 50000);
 */
+                this.messaggio = '';
+                this.aggettivo = '';
 
                 this.candidatilist.push(this.ob);
             });

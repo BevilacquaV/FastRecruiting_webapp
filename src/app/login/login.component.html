@@ -7,12 +7,14 @@
             <form role="form">
                 <div class="form-content">
                     <div class="form-group">
-                        <input type="text" ng-model="name" class="form-control input-underline input-lg" id="email" placeholder="Email" #email>
+                        <input type="text" ng-model="name" class="form-control input-underline input-lg" id="email" placeholder="Email" (change)="onAlert()" #email>
                     </div>
 
                     <div class="form-group">
-                        <input type="password" class="form-control input-underline input-lg" id="password" placeholder="Password" #password>
+                        <input type="password" class="form-control input-underline input-lg" id="password" placeholder="Password" (change)="onAlert()" #password>
                     </div>
+                    <label *ngIf="alert" >compilare tutti i campi</label>
+                    <label *ngIf="error" >Utente Non Trovato</label>
                 </div>
                 <a class="btn rounded-btn" [routerLink]="['/dashboard']" (click)="onLoggedin(email.value,password.value)"> Login </a>
                 &nbsp;

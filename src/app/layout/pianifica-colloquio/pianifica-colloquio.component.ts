@@ -47,6 +47,8 @@ export class PianificaColloquioComponent implements OnInit {
         });
 
         */
+        this.aggettivo = 'Congratulazione!';
+        this.messaggio = 'Hai pianificato tutti i colloqui.';
         this.db.list('/candidature/candidature_idonee').snapshotChanges().map(actions => {
             return actions.map(action => ({ key: action.key, ...action.payload.val() }));
         }).subscribe(items => {
@@ -70,14 +72,13 @@ export class PianificaColloquioComponent implements OnInit {
                     this.candidatilist.push(this.ob);
 
                     this.ref1++;
+
+                    this.messaggio= '';
+                    this.aggettivo= '';
                 }
             });
         });
 
-        if (this.ref1 === 1) {
-            this.aggettivo = 'Congratulazione!';
-            this.messaggio = 'Hai pianificato tutti i colloqui.';
-        }
         /*
         this.database.valueChanges().forEach(el => {
             el.forEach(element => {

@@ -7,22 +7,22 @@
             <form role="form" >
                 <fieldset class="form-group">
                     <label>Titolo annuncio:</label>
-                    <input    [(ngModel)]= "job.titolo" type="text" class="form-control input-underline input-lg" id="titolo" placeholder="Titolo Annuncio" #titolo  name="titolo">
+                    <input    [(ngModel)]= "job.titolo" type="text" class="form-control input-underline input-lg" id="titolo" placeholder="Titolo Annuncio" #titolo  name="titolo" (change)="onAlert()">
                 </fieldset>
 
                 <fieldset class="form-group">
                     <label>Annuncio:</label>
-                    <textarea  [(ngModel)]= "job.annuncio"class="form-control" rows="3" id="annuncio" placeholder="Annuncio" #annuncio name="annuncio" ></textarea>
+                    <textarea  [(ngModel)]= "job.annuncio"class="form-control" rows="3" id="annuncio" placeholder="Annuncio" #annuncio name="annuncio" (change)="onAlert()"></textarea>
                 </fieldset>
 
                 <fieldset class="form-group">
                     <label>Titolo di studio:</label>
-                    <input [(ngModel)]= "job.titolodistudio" type="text" class="form-control input-underline input-lg" id="titolostudio" placeholder="Titolo Di Studio" #titolostudio name="titolodistudio">
+                    <input [(ngModel)]= "job.titolodistudio" type="text" class="form-control input-underline input-lg" id="titolostudio" placeholder="Titolo Di Studio" #titolostudio name="titolodistudio" (change)="onAlert()">
                 </fieldset>
 
                 <fieldset class="form-group">
                     <label>Luogo di lavoro:</label>
-                    <input [(ngModel)]= "job.luogodilavoro"  type="text" class="form-control input-underline input-lg" id="luogo" placeholder="Luogo Lavoro" #luogolavoro name="luogodilavoro">
+                    <input [(ngModel)]= "job.luogodilavoro"  type="text" class="form-control input-underline input-lg" id="luogo" placeholder="Luogo Lavoro" #luogolavoro name="luogodilavoro" (change)="onAlert()">
                 </fieldset>
 
 
@@ -62,7 +62,7 @@
                                     <tr>
                                         <td td colspan="3">
 
-                                            <input disabled [(ngModel)]="job.skill" type="text" class="form-control input-underline input-lg"  name="skillscelte">
+                                            <input disabled [(ngModel)]="job.skill" type="text" class="form-control input-underline input-lg"  name="skillscelte" (change)="onAlert()">
 
                                         </td>
                                     </tr>
@@ -82,6 +82,9 @@
         <div class="col-xl-4">
             <button type="submit" class="btn btn-secondary"   (click)="onPublicAd()">Pubblica</button>
             <button type="reset" class="btn btn-secondary" [routerLink]="['/dashboard']">Annulla</button>
+        </div>
+        <div *ngIf="alert">
+            <label  style="text-align: left; color:#ff0000;">*Riempire tutti i campi</label>
         </div>
         <div class="col-xl-4 text-xs-center">
 

@@ -29,10 +29,12 @@ export class PublicAdComponent implements OnInit {
     public list: Array<any> = [];
     log: string;
     flag: boolean;
+    alert;
 
     public selectedllist: Array<any> = [];
 
     constructor(private db: AngularFireDatabase, private r: Router) {
+        this.alert = false;
         this.router = r;
         this.job = {titolo: '', luogodilavoro: '', skill: '', annuncio: '', titolodistudio: '', key: ''};
         this.flag = false;
@@ -57,7 +59,7 @@ export class PublicAdComponent implements OnInit {
         this.databasePubblica = this.db.list('/offertedilavoro');
         if ( this.job.titolo === '' || this.job.annuncio === '' || this.job.titolodistudio === ''
             || this.job.luogodilavoro === '' || this.job.skill === '') {
-            alert('riempire tutti campi vuoti');
+            this.alert = true;
         } else {
             const saveData = {
                 titolo: this.job.titolo, annuncio: this.job.annuncio, titolodistudio: this.job.titolodistudio,
@@ -69,6 +71,10 @@ export class PublicAdComponent implements OnInit {
 
         }
 
+    }
+
+    onAlert() {
+        this.alert = false;
     }
 
 

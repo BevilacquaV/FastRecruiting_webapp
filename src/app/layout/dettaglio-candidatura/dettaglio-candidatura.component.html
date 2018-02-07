@@ -122,12 +122,13 @@
         <hr/>
         <div style="text-align: center;"  >
        <!-- <button type="button" class="btn btn-success" name="buttonpianifica" #buttonpianifica>Pianifica colloquio</button>
-        -->
-          <button *ngIf="vis" class="btn btn-success" name="buttonpianifica" #buttonpianifica> Pianifica colloquio</button>
 
+          <button *ngIf="vis" class="btn btn-success" name="buttonpianifica" #buttonpianifica> Pianifica colloquio</button>
+-->
         </div>
 
 
+        <div *ngIf="vis">
         <div class="form-group">
           <label>Seleziona Valutazione</label>
           <select  [(ngModel)]="valuta.valore"  class="form-control" name="select"  (click)="onVisualizza()">
@@ -151,6 +152,48 @@
         <div style="text-align: left;  margin-top: 20px;">
           <button   *ngIf="scelgoTecnico" type="button" class="btn btn-primary"  (click)="onStoreRichiediAttenzione()">conferma</button>
         </div>
+        </div>
+
+
+
+        <!-- Vincenzo -->
+        <div class="row" *ngIf="vis_pianifica">
+          <div class="col-lg-12">
+            <div class="card mb-3">
+              <div class="card-header" align="center">Pianifica colloquio</div>
+              <div class="card-body">
+                <fieldset class="form-group">
+                  <label>Data:</label>
+                  <input    [(ngModel)]= "data" type="text" class="form-control input-underline input-lg"  placeholder="gg/mm/yyyy"   name="data" (change)="onAlert()">
+                </fieldset>
+
+
+                <fieldset class="form-group">
+                  <label>Orario:</label>
+                  <input [(ngModel)]= "orario" type="text" class="form-control input-underline input-lg"  placeholder="hh:mm"  name="orario" (change)="onAlert()">
+                </fieldset>
+
+                <fieldset class="form-group">
+                  <label>Luogo di lavoro:</label>
+                  <input [(ngModel)]= "luogo"  type="text" class="form-control input-underline input-lg"  placeholder="Luogo di Lavoro"  name="luogodilavoro" (change)="onAlert()">
+                </fieldset>
+
+                <fieldset class="form-group">
+                  <label>URL Google Maps:</label>
+                  <input [(ngModel)]= "url"  type="text" class="form-control input-underline input-lg"  placeholder="URL Google Maps" name="url" (change)="onAlert()">
+                </fieldset>
+
+                <label  *ngIf="alert" style="color:#ff0000">*Riempire tutti i campi</label>
+                <div style="text-align: center;">
+                  <button  class="btn btn-success" name="buttonpianifica" #buttonpianifica (click)="onPianifica()"> Pianifica </button>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
 
       </form>
 

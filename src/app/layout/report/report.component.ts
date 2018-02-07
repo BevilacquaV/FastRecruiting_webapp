@@ -83,6 +83,8 @@ export class ReportComponent implements OnInit {
 
                     this.candidatilist.push(this.ob);
 
+                    this.aggettivo = '';
+                    this.messaggio = '';
                     this.ref1++;
                 } else {
                         this.aggettivo = 'Congratulazione!';

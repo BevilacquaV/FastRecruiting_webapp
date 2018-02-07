@@ -25,9 +25,13 @@ export class LoginComponent implements OnInit {
     name;
     key: String;
     email: string;
+    alert = false;
+    error = false;
     // constructor(public router: Router) {}
 
     constructor(private db: AngularFireDatabase) {
+        this.alert = false;
+        this.error = false;
         this.database = this.db.list('/account/recruiter/');
         this.fullname = '';
         console.log('pulisco le sessioni');
@@ -38,6 +42,13 @@ export class LoginComponent implements OnInit {
     }
 
     onLoggedin(email, password) {
+        if (email === '' || password === '') {
+            this.error = false;
+            this.alert = true;
+
+            return;
+        }
+
         this.flag = 0;
         this.database.valueChanges().forEach(el => {
              const criptPassword = Md5.init(password);
@@ -59,6 +70,7 @@ export class LoginComponent implements OnInit {
                 console.log('stampo la sessione:', this.name );
                 sessionStorage.setItem('SessionEmail', '' + this.email);
             } else {
+                this.error = true;
                 console.log('Utente non trovato');
             }
         });
@@ -74,5 +86,9 @@ export class LoginComponent implements OnInit {
                 }
             });
         });
+    }
+
+    onAlert() {
+        this.alert = false;
     }
 }

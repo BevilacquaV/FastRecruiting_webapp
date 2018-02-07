@@ -22,9 +22,13 @@ export class ViewCandidatesComponent implements OnInit {
     ref1 = 1;
     fff;
     ref;
+    messaggio;
+    aggettivo;
 
     constructor(private db: AngularFireDatabase, private f: FirebaseApp) {
         this.fff = f;
+        this.aggettivo = 'Congratulazione!';
+        this.messaggio = 'Nessun candidato da analizzare.';
 
         this.db.list('/candidature/candidature_da_analizzare/').snapshotChanges().map(actions => {
             return actions.map(action => ({ key: action.key, ...action.payload.val() }));
@@ -37,11 +41,17 @@ export class ViewCandidatesComponent implements OnInit {
                 this.ob.setKeyCandidatura(it.key);
                 this.ob.setNumber(this.ref1);
 
+                this.ob.setFullname(it.fullnameCandidato);
+                this.ob.setNameOfferta(it.titoloOfferta);
+                /*
                 this.searchIdOfferta(it.id_offerta);
                 this.searchIdCandidato(it.id_candidato);
+                */
                 this.candidatilist.push(this.ob);
 
                 this.ref1++;
+                this.aggettivo = '';
+                this.messaggio = '';
             });
         });
 

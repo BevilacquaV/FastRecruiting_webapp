@@ -22,6 +22,15 @@ import {Tecnico} from './tecnico';
   styleUrls: ['./dettaglio-candidatura.component.scss']
 })
 export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
+    /* Vincenzo */
+    data;
+    luogo;
+    orario;
+    url;
+    alert;
+    vis_pianifica;
+
+
 
     private sub: any;
     database;
@@ -52,6 +61,7 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
     scelgoTecnico;
     public tecnicotilist: Array<any> = [];
     databaseAttenzione;
+    pianifica;
     /*
 
     private sub: any;
@@ -93,6 +103,11 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
     titolodistudio;
      */
     constructor(private db: AngularFireDatabase, private route: ActivatedRoute, private fff: FirebaseApp, private router: Router) {
+        this.orario = '';
+        this.luogo = '';
+        this.url = '';
+        this.data = '';
+        this.alert = false;
         /*
         this.dis = 'disabled';
         this.vis = 'true';
@@ -101,7 +116,12 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
         this.sub = this.route.params.subscribe(params => {
             this.key = params['key'];
             this.who_candidatura = params['candidatura'];
-            console.log('key: ', params['key'], ' page_id: ', this.who_candidatura);
+            if ( this.who_candidatura === 'candidature_da_pianificare') {
+                this.pianifica = params['pianifica'];
+                console.log(' devo pianificare:', this.pianifica);
+            }
+
+            console.log('key: ', params['key'], ' page_id: ', this.who_candidatura, ' devo pianificare:', this.pianifica);
         });
 
         if (this.who_candidatura === 'candidature_idonee') {
@@ -122,10 +142,17 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
             this.messaggio = 'Stai visualizzando una candidatura che ha richiesto assistenza tecnica. ';
         }
 
-        if (this.who_candidatura === 'candidature_da_analizzares') {
+        if (this.who_candidatura === 'candidature_da_analizzare') {
             this.stile = 'alert alert-info';
             this.aggettivo = 'Perfetto!';
             this.messaggio = 'Ora puoi analizzare la candidatura. ';
+        }
+
+        if (this.who_candidatura === 'candidature_da_pianificare') {
+            this.stile = 'alert alert-success';
+            this.aggettivo = 'Perfetto!';
+            this.messaggio = 'Stai visualizzando una candidatura IDONEA. ';
+
         }
 
         /*
@@ -151,6 +178,12 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
             });
         });
 */
+        if (this.who_candidatura === 'candidature_da_pianificare') {
+                this.vis_pianifica = true;
+            this.who_candidatura = 'candidature_idonee';
+            } else {
+            this.vis_pianifica = false;
+        }
 
         this.ref = fff.database().ref('/candidature/' + this.who_candidatura + '/' + this.key);
         this.ref.once('value', snapshot => {
@@ -228,15 +261,15 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
             });
         });
 
-        if (this.who_candidatura === 'candidature_idonee') {
-            if (this.ob.dataColloquio === '') {
+
+
+
+        if (this.who_candidatura === 'candidature_da_analizzare' || this.who_candidatura === 'candidature_da_verificare') {
                 this.vis = true;
             } else {
                 this.vis = false;
             }
-        } else {
-            this.vis = false;
-        }
+
             /*
         })
             .then(function(snapshot) {
@@ -352,12 +385,17 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
             id_tecnico: this.ob.idTecnico, lett_present: this.ob.pathLettPresent, luogo_colloquio: this.ob.luogoColloquio,
             note: this.ob.noteCandidato, note_recruiter: this.ob.noteRecruiter, note_tecnico: this.ob.noteTecnico,
             orario_colloquio: this.ob.orarioColloquio, skill: this.ob.skillCandidato, titolodistudio: this.ob.titolodistudio,
-            fullanameCandidato: this.ob.fullname, titoloOfferta: this.ob.offerta};
+            fullnameCandidato: this.ob.fullname, titoloOfferta: this.ob.offerta};
         console.log(saveData);
         this.database.push( saveData );
-
-        this.db.list('/candidature/candidature_da_analizzare').remove('' + this.key);
-        this.router.navigateByUrl('/view-candidates');
+        if (this.who_candidatura === 'candidature_da_analizzare') {
+            this.db.list('/candidature/candidature_da_analizzare').remove('' + this.key);
+            this.router.navigateByUrl('/view-candidates');
+        }
+        if (this.who_candidatura === 'candidature_da_verificare') {
+            this.db.list('/candidature/candidature_da_verificare').remove('' + this.key);
+            this.router.navigateByUrl('/candidati-da-verificare');
+        }
     }
 
     onStoreNonIdoneo() {
@@ -367,12 +405,20 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
             id_tecnico: this.ob.idTecnico, lett_present: this.ob.pathLettPresent, luogo_colloquio: this.ob.luogoColloquio,
             note: this.ob.noteCandidato, note_recruiter: this.ob.noteRecruiter, note_tecnico: this.ob.noteTecnico,
             orario_colloquio: this.ob.orarioColloquio, skill: this.ob.skillCandidato, titolodistudio: this.ob.titolodistudio,
-            fullanameCandidato: this.ob.fullname, titoloOfferta: this.ob.offerta};
+            fullnameCandidato: this.ob.fullname, titoloOfferta: this.ob.offerta};
         console.log(saveData);
         this.database.push( saveData );
 
-        this.db.list('/candidature/candidature_da_analizzare').remove('' + this.key);
-        this.router.navigateByUrl('/view-candidates');
+
+        if (this.who_candidatura === 'candidature_da_analizzare') {
+            this.db.list('/candidature/candidature_da_analizzare').remove('' + this.key);
+            this.router.navigateByUrl('/view-candidates');
+        }
+        if (this.who_candidatura === 'candidature_da_verificare') {
+            this.db.list('/candidature/candidature_da_verificare').remove('' + this.key);
+            this.router.navigateByUrl('/candidati-da-verificare');
+        }
+
     }
 
     onStoreRichiediAttenzione() {
@@ -401,15 +447,23 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
                         orario_colloquio: this.ob.orarioColloquio,
                         skill: this.ob.skillCandidato,
                         titolodistudio: this.ob.titolodistudio,
-                        fullanameCandidato: this.ob.fullname,
+                        fullnameCandidato: this.ob.fullname,
                         titoloOfferta: this.ob.offerta
                     };
                     console.log(saveData);
 
                     console.log(saveData);
                     this.databaseAttenzione.push(saveData);
-                    this.db.list('/candidature/candidature_da_analizzare').remove('' + this.key);
-                    this.router.navigateByUrl('/view-candidates');
+
+                    if (this.who_candidatura === 'candidature_da_analizzare') {
+
+                        this.db.list('/candidature/candidature_da_analizzare').remove('' + this.key);
+                        this.router.navigateByUrl('/view-candidates');
+                    }
+                    if (this.who_candidatura === 'candidature_da_verificare') {
+                        this.db.list('/candidature/candidature_da_verificare').remove('' + this.key);
+                        this.router.navigateByUrl('/candidati-da-verificare');
+                    }
 
                 }
 
@@ -472,6 +526,23 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
             });
         });
         */
+    }
+
+    onPianifica() {
+
+        if (this.orario !== '' && this.luogo !== '' && this.data !== '' && this.url !== '') {
+            this.database = this.db.list('/candidature/candidature_idonee/');
+            this.database.update(this.key, {data_colloquio: this.data, luogo_colloquio: this.luogo, orario_colloquio:
+            this.orario, google_maps: this.url});
+            this.router.navigateByUrl('/pianifica-colloquio');
+        } else {
+            this.alert = true;
+
+        }
+
+    }
+    onAlert() {
+        this.alert = false;
     }
 
     ngOnInit() {
