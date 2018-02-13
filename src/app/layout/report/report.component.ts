@@ -39,6 +39,9 @@ export class ReportComponent implements OnInit {
         this.fff = f;
         this.database = this.db.list('/candidature/candidature_idonee');
 
+        this.aggettivo = 'Congratulazione!';
+        this.messaggio = 'Nessun colloquio in programma in questa giornata.';
+
         this.dt = new Date();
         this.day = this.dt.getDate();
         this.month = this.dt.getMonth() + 1;
@@ -86,12 +89,7 @@ export class ReportComponent implements OnInit {
                     this.aggettivo = '';
                     this.messaggio = '';
                     this.ref1++;
-                } else {
-                        this.aggettivo = 'Congratulazione!';
-                        this.messaggio = 'Nessun colloquio in programma in questa giornata.';
                 }
-
-
             });
         });
 

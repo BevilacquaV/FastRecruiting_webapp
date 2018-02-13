@@ -258,6 +258,10 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
                     this.ob.setSkillCandidato(value.val());
                 }
 
+                if (value.key === 'giudizio') {
+                    this.ob.setGiudizioTecnico(value.val());
+                }
+
             });
         });
 
@@ -385,7 +389,7 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
             id_tecnico: this.ob.idTecnico, lett_present: this.ob.pathLettPresent, luogo_colloquio: this.ob.luogoColloquio,
             note: this.ob.noteCandidato, note_recruiter: this.ob.noteRecruiter, note_tecnico: this.ob.noteTecnico,
             orario_colloquio: this.ob.orarioColloquio, skill: this.ob.skillCandidato, titolodistudio: this.ob.titolodistudio,
-            fullnameCandidato: this.ob.fullname, titoloOfferta: this.ob.offerta};
+            fullnameCandidato: this.ob.fullname, titoloOfferta: this.ob.offerta, giudizio: this.ob.giudizioTecnico};
         console.log(saveData);
         this.database.push( saveData );
         if (this.who_candidatura === 'candidature_da_analizzare') {
@@ -405,7 +409,7 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
             id_tecnico: this.ob.idTecnico, lett_present: this.ob.pathLettPresent, luogo_colloquio: this.ob.luogoColloquio,
             note: this.ob.noteCandidato, note_recruiter: this.ob.noteRecruiter, note_tecnico: this.ob.noteTecnico,
             orario_colloquio: this.ob.orarioColloquio, skill: this.ob.skillCandidato, titolodistudio: this.ob.titolodistudio,
-            fullnameCandidato: this.ob.fullname, titoloOfferta: this.ob.offerta};
+            fullnameCandidato: this.ob.fullname, titoloOfferta: this.ob.offerta, giudizio: this.ob.giudizioTecnico};
         console.log(saveData);
         this.database.push( saveData );
 
@@ -448,7 +452,8 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
                         skill: this.ob.skillCandidato,
                         titolodistudio: this.ob.titolodistudio,
                         fullnameCandidato: this.ob.fullname,
-                        titoloOfferta: this.ob.offerta
+                        titoloOfferta: this.ob.offerta,
+                        giudizio: this.ob.giudizioTecnico
                     };
                     console.log(saveData);
 

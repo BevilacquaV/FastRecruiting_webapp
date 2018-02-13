@@ -21,6 +21,7 @@ export class Candidatura {
     orarioColloquio: String;
     skillCandidato: String;
     fullnameTecnico: String;
+    giudizioTecnico: String;
     /*
     constructor(number, fullname, offerta, data, key_candidatura) {
         this.data = data;
@@ -51,6 +52,11 @@ export class Candidatura {
         this.noteTecnico = '';
         this.orarioColloquio = '';
         this.skillCandidato = '';
+        this.giudizioTecnico = '';
+    }
+
+    public setGiudizioTecnico(giudizioTecnico) {
+        this.giudizioTecnico = giudizioTecnico;
     }
 
     public setNameOfferta(nameOfferta) {
