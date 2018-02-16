@@ -446,7 +446,7 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
                         google_maps: this.ob.linkGoogleMaps,
                         id_candidato: this.ob.idCandidato,
                         id_offerta: this.ob.idOfferta,
-                        id_tecnico: this.ob.idTecnico,
+                        id_tecnico: this.keytecnico,
                         lett_present: this.ob.pathLettPresent,
                         luogo_colloquio: this.ob.luogoColloquio,
                         note: this.ob.noteCandidato,
