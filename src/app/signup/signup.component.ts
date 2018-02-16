@@ -22,8 +22,15 @@ import { Md5 } from '../../../node_modules/md5-typescript/Md5';
 export class SignupComponent implements OnInit {
     database;
     error;
+    passDiversa;
+    alert;
+    flag= false;
     recruiter: Recruiter;
     constructor(private db: AngularFireDatabase, private router: Router) {
+        this.error = false;
+        this.alert = false;
+        this.passDiversa = false;
+        this.flag = false;
         this.recruiter = {nome: '', email: '', telefono: '', password: '', nuovapassword: ''};
         this.database = this.db.list('/account/recruiter');
     }
@@ -32,25 +39,43 @@ export class SignupComponent implements OnInit {
 
 
     onControlData(repeatpassword: string) {
+        this.flag = false;
         if (this.recruiter.nome === '' || this.recruiter.email === '' ||
             this.recruiter.password === '' || this.recruiter.telefono === '' || repeatpassword === '' ) {
-            console.log('compilare tutti i campi');
-            this.error = 'compilare tutti i campi';
+            this.error = true;
             return;
 
         }  else {
-            this.onSignup(repeatpassword);
+
+
+            this.database.valueChanges().forEach(el => {
+                el.forEach(element => {
+                    console.log(element.email);
+                    if (element.email === this.recruiter.email ) {
+                        this.flag = true;
+                        this.alert = true;
+                        return;
+
+
+                    }
+                });
+                console.log(this.flag);
+
+                if (this.flag === false) {
+                    this.onSignup(repeatpassword);
+                }
+
+            });
         }
 
 
     }
 
     onSignup( repeatpassword: string ) {
-
         const md5password = Md5.init(this.recruiter.password);
         const md5repeatpassword = Md5.init(repeatpassword);
         if (md5password !== md5repeatpassword ) {
-            this.error = 'password diverse';
+            this.passDiversa = true;
             return;
         }
         console.log(md5password);
@@ -62,4 +87,11 @@ export class SignupComponent implements OnInit {
         this.router.navigateByUrl('/login');
 
     }
+
+    onAlert() {
+        this.alert = false;
+        this.error = false;
+        this.passDiversa = false;
+    }
 }
+

@@ -246,6 +246,10 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
                     this.ob.setNoteRecruiter(value.val());
                 }
 
+                if (value.key === 'note_candidato') {
+                    this.ob.setNoteCandidato(value.val());
+                }
+
                 if (value.key === 'note_tecnico') {
                     this.ob.setNoteTecnico(value.val());
                 }

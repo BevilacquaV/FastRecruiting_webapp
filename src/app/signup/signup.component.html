@@ -7,22 +7,29 @@
             <form role="form">
                 <div class="form-content">
                     <div class="form-group">
-                        <input [(ngModel)]="recruiter.nome" type="text" class="form-control input-underline input-lg" name="fullname" placeholder="Full Name">
+                        <input [(ngModel)]="recruiter.nome" type="text" class="form-control input-underline input-lg"
+                               name="fullname" placeholder="Full Name" (change)="onAlert()">
                     </div>
 
                     <div class="form-group">
-                        <input  [(ngModel)]="recruiter.email" type="text" class="form-control input-underline input-lg" name="email" placeholder="Email" >
+                        <input  [(ngModel)]="recruiter.email" type="text" class="form-control input-underline input-lg"
+                                name="email" placeholder="Email"  (change)="onAlert()">
                     </div>
                     <div class="form-group">
-                        <input [(ngModel)]="recruiter.telefono" type="text" class="form-control input-underline input-lg"placeholder="Phone" name="phone" >
+                        <input [(ngModel)]="recruiter.telefono" type="text" class="form-control input-underline input-lg"
+                               placeholder="Phone" name="phone" (change)="onAlert()">
                     </div>
                     <div class="form-group">
-                        <input   [(ngModel)]="recruiter.password" type="password" class="form-control input-underline input-lg" name="password" placeholder="Password">
+                        <input   [(ngModel)]="recruiter.password" type="password" class="form-control input-underline input-lg"
+                                 name="password" placeholder="Password" (change)="onAlert()">
                     </div>
                     <div class="form-group" >
-                        <input type="password" class="form-control input-underline input-lg" id="repeatpassword" placeholder="Repeat Password" #repeatpassword>
+                        <input type="password" class="form-control input-underline input-lg"
+                               id="repeatpassword" placeholder="Repeat Password" #repeatpassword (change)="onAlert()">
                     </div>
-                    <label style="color:white; " >{{this.error}}</label>
+                    <label *ngIf="error" >Compilare tutti i campi</label>
+                    <label *ngIf="alert" >Email esistente</label>
+                    <label *ngIf="passDiversa" >password diverse</label>
 
                 </div>
                 <a class="btn rounded-btn"  (click)="onControlData(repeatpassword.value)"> Register </a>&nbsp;
