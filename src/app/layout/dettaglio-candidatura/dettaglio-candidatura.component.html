@@ -29,7 +29,7 @@
 
 
 
-  <app-page-header [heading]="'Dettaglio Candidatura'" [icon]="'fa-edit'"></app-page-header>
+<app-page-header [heading]="'Dettaglio Candidatura'" [icon]="'fa-edit'"></app-page-header>
 
 <div style="text-align: center;">
   <div class="{{stile}}">
@@ -37,110 +37,98 @@
   </div>
 </div>
 <div class="row">
-    <div class="col-lg-6">
+  <div class="col-lg-6">
 
-      <form role="form">
-        <fieldset class="form-group">
-          <label style="font-weight: bold; color:#000">Fullname</label>
-          <p class="help-block">{{ob.fullname}}</p>
-        </fieldset>
-        <hr/>
-          <!-- <p class="help-block">Qui stampa il fullname.</p> -->
-        <fieldset class="form-group">
-          <label style="font-weight: bold; color:#000">Titolo di studio</label>
-          <p class="help-block">{{ob.titolodistudio}}</p>
-        </fieldset>
-        <hr/>
-          <!-- <input class="form-control" placeholder="Enter text"> -->
+    <form role="form">
+      <fieldset class="form-group">
+        <label style="font-weight: bold; color:#000">Fullname</label>
+        <p class="help-block">{{ob.fullname}}</p>
+      </fieldset>
+      <hr/>
+      <!-- <p class="help-block">Qui stampa il fullname.</p> -->
+      <fieldset class="form-group">
+        <label style="font-weight: bold; color:#000">Titolo di studio</label>
+        <p class="help-block">{{ob.titolodistudio}}</p>
+      </fieldset>
+      <hr/>
+      <!-- <input class="form-control" placeholder="Enter text"> -->
 
-        <fieldset class="form-group">
-          <label style="font-weight: bold; color:#000">Skill</label>
-          <p class="help-block">{{ob.skillCandidato}} </p>
-        </fieldset>
-        <hr/>
+      <fieldset class="form-group">
+        <label style="font-weight: bold; color:#000">Skill</label>
+        <p class="help-block">{{ob.skillCandidato}} </p>
+      </fieldset>
+      <hr/>
 
-        <fieldset class="form-group">
-          <label style="font-weight: bold; color:#000">Titolo di studio</label>
-          <p class="help-block">{{ob.titolodistudio}} </p>
-        </fieldset>
-        <hr/>
+      <fieldset class="form-group">
+        <label style="font-weight: bold; color:#000">Curriculum Vitae</label>
+        <p class="help-block"><a target="_blank" href="{{ob.pathCV}}">clicca qui..</a> </p>
+      </fieldset>
+      <hr/>
 
-        <fieldset class="form-group">
-          <label style="font-weight: bold; color:#000">Note</label>
-          <p class="help-block">{{ob.noteCandidato}}</p>
-        </fieldset>
-        <hr/>
+      <fieldset class="form-group">
+        <label style="font-weight: bold; color:#000">Lettera di presentazione</label>
+        <p class="help-block"><a target="_blank" href="{{ob.pathLettPresent}}">clicca qui..</a> </p>
+      </fieldset>
+      <hr/>
 
-        <fieldset class="form-group">
-          <label style="font-weight: bold; color:#000">Curriculum Vitae</label>
-          <p class="help-block"><a target="_blank" href="{{ob.pathCV}}">clicca qui..</a> </p>
-        </fieldset>
-        <hr/>
+    </form>
 
-        <fieldset class="form-group">
-          <label style="font-weight: bold; color:#000">Lettera di presentazione</label>
-          <p class="help-block"><a target="_blank" href="{{ob.pathLettPresent}}">clicca qui..</a> </p>
-        </fieldset>
-        <hr/>
+  </div>
+  <div class="col-lg-6">
+    <!-- <h4>Disabled Form States</h4> -->
 
-      </form>
+    <form role="form">
 
-    </div>
-    <div class="col-lg-6">
-      <!-- <h4>Disabled Form States</h4> -->
-
-      <form role="form">
-
-        <fieldset class="form-group">
+      <fieldset class="form-group">
         <label style="font-weight: bold; color:#000">Offerta di lavoro</label>
         <p class="help-block">{{ob.offerta}}</p>
       </fieldset>
-        <hr/>
-
-        <fieldset class="form-group">
-          <label style="font-weight: bold; color:#000">Colloquio in data</label>
-          <p class="help-block"> {{ob.dataColloquio}} - {{ob.orarioColloquio}}</p>
-        </fieldset>
-        <hr/>
-
-        <fieldset class="form-group">
-          <label style="font-weight: bold; color:#000">Luogo colloquio</label>
-          <p class="help-block"> {{ob.luogoColloquio}} <a target="_blank" href="{{ob.linkGoogleMaps}}">Google Maps</a></p>
-        </fieldset>
-        <hr/>
-
-        <fieldset class="form-group">
-          <label style="font-weight: bold; color:#000">Note Candidato</label>
-          <p class="help-block"> {{ob.noteCandidato}}</p>
-        </fieldset>
-        <hr/>
-
-        <fieldset class="form-group">
-          <label style="font-weight: bold; color:#000">Note recruiter</label>
-          <p class="help-block"> {{ob.noteRecruiter}}</p>
-        </fieldset>
-        <hr/>
-
-        <fieldset class="form-group">
-          <label style="font-weight: bold; color:#000">Note assist. tecnico</label>
-          <p class="help-block"> {{ob.noteTecnico}}</p>
-        </fieldset>
       <hr/>
 
-        <fieldset class="form-group">
-          <label style="font-weight: bold;">Giudizio del assist. tecnico</label>
-          <p class="help-block"> {{ob.giudizioTecnico}}</p>
-        </fieldset>
-        <hr/>
-        <div style="text-align: center;"  >
-       <!-- <button type="button" class="btn btn-success" name="buttonpianifica" #buttonpianifica>Pianifica colloquio</button>
+      <fieldset class="form-group">
+        <label style="font-weight: bold; color:#000">Colloquio in data</label>
+        <p class="help-block"> {{ob.dataColloquio}} - {{ob.orarioColloquio}}</p>
+      </fieldset>
+      <hr/>
 
-          <button *ngIf="vis" class="btn btn-success" name="buttonpianifica" #buttonpianifica> Pianifica colloquio</button>
--->
-        </div>
+      <fieldset class="form-group">
+        <label style="font-weight: bold; color:#000">Luogo colloquio</label>
+        <p class="help-block"> {{ob.luogoColloquio}} <a target="_blank" href="{{ob.linkGoogleMaps}}">Google Maps</a></p>
+      </fieldset>
+      <hr/>
+
+      <fieldset class="form-group">
+        <label style="font-weight: bold; color:#000">Note Candidato</label>
+        <p class="help-block"> {{ob.noteCandidato}}</p>
+      </fieldset>
+      <hr/>
+
+      <fieldset class="form-group">
+        <label style="font-weight: bold; color:#000">Note recruiter</label>
+        <p class="help-block"> {{ob.noteRecruiter}}</p>
+      </fieldset>
+      <hr/>
+
+      <fieldset class="form-group">
+        <label style="font-weight: bold; color:#000">Note assist. tecnico</label>
+        <p class="help-block"> {{ob.noteTecnico}}</p>
+      </fieldset>
+      <hr/>
+
+      <fieldset class="form-group">
+        <label style="font-weight: bold;">Giudizio del assist. tecnico</label>
+        <p class="help-block"> {{ob.giudizioTecnico}}</p>
+      </fieldset>
+      <hr/>
+      <div style="text-align: center;"  >
+        <!-- <button type="button" class="btn btn-success" name="buttonpianifica" #buttonpianifica>Pianifica colloquio</button>
+
+           <button *ngIf="vis" class="btn btn-success" name="buttonpianifica" #buttonpianifica> Pianifica colloquio</button>
+ -->
+      </div>
 
 
-        <div *ngIf="vis">
+      <div *ngIf="vis">
         <div class="form-group">
           <label>Seleziona Valutazione</label>
           <select  [(ngModel)]="valuta.valore"  class="form-control" name="select"  (click)="onVisualizza()">
@@ -151,9 +139,14 @@
         </div>
         <label *ngIf="vistaTecnico">Seleziona Tecnico</label>
         <select  [(ngModel)]="nomeTecnico"  *ngIf="vistaTecnico" class="form-control" name="select" (click) = "onScelgoTecnico()">
-          <option *ngFor="let list of tecnicotilist">{{ list.fullname }}</option>
+          <option *ngFor="let list of tecnicotilist">{{ list.fullname }} </option>
 
         </select>
+
+        <fieldset class="form-group" *ngIf="nota">
+          <label>Nota Recruiter:</label>
+          <textarea   [(ngModel)]="notaRecruiter" class="form-control" rows="3"  placeholder="Nota"  name="notaRecruiter" ></textarea>
+        </fieldset>
 
         <div style="text-align: left;">
           <button  *ngIf="vistaIdoneo"type="button" class="btn btn-success" (click)="onStoreIdoneo()" >valuta</button>
@@ -162,54 +155,54 @@
           <button *ngIf="vistaNonIdoneo" type="button" class="btn btn-danger"  (click)="onStoreNonIdoneo()" >valuta</button>
         </div>
         <div style="text-align: left;  margin-top: 20px;">
-          <button   *ngIf="scelgoTecnico" type="button" class="btn btn-primary"  (click)="onStoreRichiediAttenzione()">conferma</button>
+          <button   *ngIf="scelgoTecnico" type="button" class="btn btn-warning"  (click)="onStoreRichiediAttenzione()">conferma</button>
         </div>
-        </div>
+      </div>
 
 
 
-        <!-- Vincenzo -->
-        <div class="row" *ngIf="vis_pianifica">
-          <div class="col-lg-12">
-            <div class="card mb-3">
-              <div class="card-header" align="center">Pianifica colloquio</div>
-              <div class="card-body">
-                <fieldset class="form-group">
-                  <label>Data:</label>
-                  <input    [(ngModel)]= "data" type="text" class="form-control input-underline input-lg"  placeholder="gg/mm/yyyy"   name="data" (change)="onAlert()">
-                </fieldset>
+      <!-- Vincenzo -->
+      <div class="row" *ngIf="vis_pianifica">
+        <div class="col-lg-12">
+          <div class="card mb-3">
+            <div class="card-header" align="center">Pianifica colloquio</div>
+            <div class="card-body">
+              <fieldset class="form-group">
+                <label>Data:</label>
+                <input    [(ngModel)]= "data" type="text" class="form-control input-underline input-lg"  placeholder="gg/mm/yyyy"   name="data" (change)="onAlert()">
+              </fieldset>
 
 
-                <fieldset class="form-group">
-                  <label>Orario:</label>
-                  <input [(ngModel)]= "orario" type="text" class="form-control input-underline input-lg"  placeholder="hh:mm"  name="orario" (change)="onAlert()">
-                </fieldset>
+              <fieldset class="form-group">
+                <label>Orario:</label>
+                <input [(ngModel)]= "orario" type="text" class="form-control input-underline input-lg"  placeholder="hh:mm"  name="orario" (change)="onAlert()">
+              </fieldset>
 
-                <fieldset class="form-group">
-                  <label>Luogo di lavoro:</label>
-                  <input [(ngModel)]= "luogo"  type="text" class="form-control input-underline input-lg"  placeholder="Luogo di Lavoro"  name="luogodilavoro" (change)="onAlert()">
-                </fieldset>
+              <fieldset class="form-group">
+                <label>Luogo di lavoro:</label>
+                <input [(ngModel)]= "luogo"  type="text" class="form-control input-underline input-lg"  placeholder="Luogo di Lavoro"  name="luogodilavoro" (change)="onAlert()">
+              </fieldset>
 
-                <fieldset class="form-group">
-                  <label>URL Google Maps:</label>
-                  <input [(ngModel)]= "url"  type="text" class="form-control input-underline input-lg"  placeholder="URL Google Maps" name="url" (change)="onAlert()">
-                </fieldset>
+              <fieldset class="form-group">
+                <label>URL Google Maps:</label>
+                <input [(ngModel)]= "url"  type="text" class="form-control input-underline input-lg"  placeholder="URL Google Maps" name="url" (change)="onAlert()">
+              </fieldset>
 
-                <label  *ngIf="alert" style="color:#ff0000">*Riempire tutti i campi</label>
-                <div style="text-align: center;">
-                  <button  class="btn btn-success" name="buttonpianifica" #buttonpianifica (click)="onPianifica()"> Pianifica </button>
-
-                </div>
+              <label  *ngIf="alert" style="color:#ff0000">*Riempire tutti i campi</label>
+              <div style="text-align: center;">
+                <button  class="btn btn-success" name="buttonpianifica" #buttonpianifica (click)="onPianifica()"> Pianifica </button>
 
               </div>
+
             </div>
           </div>
         </div>
+      </div>
 
 
-      </form>
+    </form>
 
 
-    </div>
+  </div>
   <!-- /.row -->
 </div>

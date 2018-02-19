@@ -17,9 +17,9 @@ import {Valutazione} from './valutazione';
 import {Tecnico} from './tecnico';
 
 @Component({
-  selector: 'app-dettaglio-candidatura',
-  templateUrl: './dettaglio-candidatura.component.html',
-  styleUrls: ['./dettaglio-candidatura.component.scss']
+    selector: 'app-dettaglio-candidatura',
+    templateUrl: './dettaglio-candidatura.component.html',
+    styleUrls: ['./dettaglio-candidatura.component.scss']
 })
 export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
     /* Vincenzo */
@@ -29,6 +29,8 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
     url;
     alert;
     vis_pianifica;
+    notaRecruiter;
+    nota;
 
 
 
@@ -62,56 +64,15 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
     public tecnicotilist: Array<any> = [];
     databaseAttenzione;
     pianifica;
-    /*
 
-    private sub: any;
-    database;
-
-    tecnico;
-    keytecnico;
-    nomeTecnico= '';
-    vistaIdoneo;
-    vistaNonIdoneo;
-    vistaTecnico;
-    scelgoTecnico;
-    log: string;
-    d;
-    key;
-    ob: Candidatura;
-    ref;
-    public name;
-    public candidatilist: Array<any> = [];
-    public tecnicotilist: Array<any> = [];
-   candidatura: Candidatura;
-    fullname;
-    ref1;
-    who_candidatura: String;
-    cv;
-    data;
-    data_colloquio;
-    google_maps;
-    id_candidato;
-    id_offerta;
-    id_tecnico;
-    let_present;
-    luogo_colloquio;
-    note;
-    note_recruiter;
-    note_tecnico;
-    orario_colloquio;
-    skill;
-    titolodistudio;
-     */
     constructor(private db: AngularFireDatabase, private route: ActivatedRoute, private fff: FirebaseApp, private router: Router) {
         this.orario = '';
+        this.nota = false;
+        this.notaRecruiter = '';
         this.luogo = '';
         this.url = '';
         this.data = '';
         this.alert = false;
-        /*
-        this.dis = 'disabled';
-        this.vis = 'true';
-        */
         this.valuta = {valore: 'Idoneo'};
         this.sub = this.route.params.subscribe(params => {
             this.key = params['key'];
@@ -162,29 +123,12 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
         */
 
         this.ob = new Candidatura();
-/*
-         this.database = this.db.list('/candidature/' + this.who_candidatura);
-        this.database.update('-L2Uoy3wW3mj9MHFX_Dg', { annuncio : 'ci sono' });
-        this.database.set('-L2Uoy3wW3mj9MHFX_Dg', { annuncio : 'modifica l intero oggetto' });
-
-        this.db.list('/candidature/' + this.who_candidatura).snapshotChanges().map(actions => {
-            return actions.map(action => ({ key: action.key, ...action.payload.val() }));
-        }).subscribe(items => {
-            items.forEach( it => {
-                this.ob = new Candidatura(this.ref1, it.id_candidato, it.id_offerta, it.data, it.key);
-                this.candidatilist.push(this.ob);
-
-                this.ref1++;
-            });
-        });
-*/
         if (this.who_candidatura === 'candidature_da_pianificare') {
-                this.vis_pianifica = true;
+            this.vis_pianifica = true;
             this.who_candidatura = 'candidature_idonee';
-            } else {
+        } else {
             this.vis_pianifica = false;
         }
-
         this.ref = fff.database().ref('/candidature/' + this.who_candidatura + '/' + this.key);
         this.ref.once('value', snapshot => {
             snapshot.forEach( value => {
@@ -192,6 +136,7 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
                 console.log('value: ', value.val(), ' ---- key: ', value.key);
                 if (value.key === 'titolodistudio') {
                     this.ob.setTitoloDiStudio(value.val());
+                    console.log('titotlo di studio ' + value.val());
                 }
 
                 if (value.key === 'cv') {
@@ -230,7 +175,7 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
                     this.ob.setIdTecnico(value.val());
                 }
 
-                if (value.key === 'lett_present') {
+                if (value.key === 'lett_presentazione') {
                     this.ob.setPathLettPresent(value.val());
                 }
 
@@ -273,50 +218,10 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
 
 
         if (this.who_candidatura === 'candidature_da_analizzare' || this.who_candidatura === 'candidature_da_verificare') {
-                this.vis = true;
-            } else {
-                this.vis = false;
-            }
-
-            /*
-        })
-            .then(function(snapshot) {
-                let name
-                    console.log('key snapshot: ', snapshot.key);
-                    console.log('snapshot numChildren: ', snapshot.numChildren());
-                    console.log('Titolo di studio: ', snapshot.child('titolodistudio').val());
-                    console.log('PATH CV: ', snapshot.child('cv').val());
-                    console.log('Data: ', snapshot.child('data').val());
-                    console.log('Data Colloquio: ', snapshot.child('data_colloquio').val());
-                    console.log('Google Maps: ', snapshot.child('google_maps').val());
-                    console.log('Id Candidato: ', snapshot.child('id_candidato').val());
-                    console.log('Id offerta: ', snapshot.child('id_offerta').val());
-                    console.log('Id Tecnico: ', snapshot.child('id_tecnico').val());
-                    console.log('Lettera di presentazione: ', snapshot.child('lett_present').val());
-                    console.log('Luogo Colloquio: ', snapshot.child('luogo_colloquio').val());
-                    console.log('Note candidato: ', snapshot.child('note').val());
-                    console.log('Note recruiter: ', snapshot.child('note_recruiter').val());
-                    console.log('Note tecnico: ', snapshot.child('note_tecnico').val());
-                    console.log('Orario colloquio: ', snapshot.child('orario_colloquio').val());
-                    console.log('Skill: ', snapshot.child('skill').val());
-                    snapshot.name = 'dasdada';
-
-                });
-*/
-                /*
-                return snapshot.child('skill').val();
-                CONTROLLO SE ESISTE UN FIGLIO.
-                if (snapshot.hasChild('skill')) {
-                    alert('exists');
-                }
-
-
-                this.name = snapshot.child('-L2UpPY2VQxcrXc9fZUK').val();
-
-                this.fullname = snapshot.child(this.key + '/titolo').val();
-                console.log('Hooooooo.... this.name: ', this.name, ' this.fullname: ', this.fullname);
-                this.router.navigateByUrl('./dashboard/');
-                */
+            this.vis = true;
+        } else {
+            this.vis = false;
+        }
 
         /* carica il responsabile tecnico nella selecet  */
         this.db.list('/account/tecnico/').snapshotChanges().map(actions => {
@@ -350,6 +255,7 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
             this.vistaNonIdoneo = false;
             this.vistaTecnico = false;
             this.scelgoTecnico = false;
+            this.nota = false;
         } else {
             this.vistaIdoneo = false;
         }
@@ -361,6 +267,7 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
             this.vistaIdoneo = false;
             this.vistaTecnico = false;
             this.scelgoTecnico = false;
+            this.nota = false;
         } else {
             this.vistaNonIdoneo = false;
 
@@ -373,6 +280,7 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
             this.vistaTecnico = true;
             this.vistaIdoneo = false;
             this.scelgoTecnico = false;
+            this.nota = false;
 
         } else {
             this.vistaTecnico = false;
@@ -383,14 +291,14 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
 
     onScelgoTecnico() {
         this.scelgoTecnico = true;
-        console.log(this.nomeTecnico);
+        this.nota = true;
     }
 
     onStoreIdoneo() {
         this.database = this.db.list('/candidature/candidature_idonee/');
         const saveData = {cv: this.ob.pathCV, data: this.ob.dataCandidatura, data_colloquio: this.ob.dataColloquio,
             google_maps: this.ob.linkGoogleMaps, id_candidato: this.ob.idCandidato, id_offerta: this.ob.idOfferta,
-            id_tecnico: this.ob.idTecnico, lett_present: this.ob.pathLettPresent, luogo_colloquio: this.ob.luogoColloquio,
+            id_tecnico: this.ob.idTecnico, lett_presentazione: this.ob.pathLettPresent, luogo_colloquio: this.ob.luogoColloquio,
             note: this.ob.noteCandidato, note_recruiter: this.ob.noteRecruiter, note_tecnico: this.ob.noteTecnico,
             orario_colloquio: this.ob.orarioColloquio, skill: this.ob.skillCandidato, titolodistudio: this.ob.titolodistudio,
             fullnameCandidato: this.ob.fullname, titoloOfferta: this.ob.offerta, giudizio: this.ob.giudizioTecnico};
@@ -410,7 +318,7 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
         this.database = this.db.list('/candidature/candidature_non_idonee/');
         const saveData = {cv: this.ob.pathCV, data: this.ob.dataCandidatura, data_colloquio: this.ob.dataColloquio,
             google_maps: this.ob.linkGoogleMaps, id_candidato: this.ob.idCandidato, id_offerta: this.ob.idOfferta,
-            id_tecnico: this.ob.idTecnico, lett_present: this.ob.pathLettPresent, luogo_colloquio: this.ob.luogoColloquio,
+            id_tecnico: this.ob.idTecnico, lett_presentazione: this.ob.pathLettPresent, luogo_colloquio: this.ob.luogoColloquio,
             note: this.ob.noteCandidato, note_recruiter: this.ob.noteRecruiter, note_tecnico: this.ob.noteTecnico,
             orario_colloquio: this.ob.orarioColloquio, skill: this.ob.skillCandidato, titolodistudio: this.ob.titolodistudio,
             fullnameCandidato: this.ob.fullname, titoloOfferta: this.ob.offerta, giudizio: this.ob.giudizioTecnico};
@@ -447,10 +355,10 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
                         id_candidato: this.ob.idCandidato,
                         id_offerta: this.ob.idOfferta,
                         id_tecnico: this.keytecnico,
-                        lett_present: this.ob.pathLettPresent,
+                        lett_presentazione: this.ob.pathLettPresent,
                         luogo_colloquio: this.ob.luogoColloquio,
                         note: this.ob.noteCandidato,
-                        note_recruiter: this.ob.noteRecruiter,
+                        note_recruiter: this.notaRecruiter,
                         note_tecnico: this.ob.noteTecnico,
                         orario_colloquio: this.ob.orarioColloquio,
                         skill: this.ob.skillCandidato,
@@ -561,11 +469,3 @@ export class DettaglioCandidaturaComponent implements OnInit, OnDestroy {
         this.sub.unsubscribe();
     }
 }
-
-
-
-
-
-
-
-
